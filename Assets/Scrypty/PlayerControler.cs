@@ -85,7 +85,7 @@ public class PlayerControler : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         
         // Calculate movement direction
-        moveDirection = (horizontalInput * cameraOrientation.right + verticalInput * cameraOrientation.forward).normalized;
+        moveDirection = (horizontalInput * cameraOrientation.right + verticalInput * transform.forward).normalized;
         
         // Move player
         rb.AddForce(moveDirection * moveSpeed * 10f);
