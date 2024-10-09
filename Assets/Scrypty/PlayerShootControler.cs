@@ -11,9 +11,19 @@ public class PlayerShootControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(weapon.isAutomatic)
         {
-            weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
+            if(Input.GetMouseButton(0))
+            {
+                weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
+            }
         }
     }
 }

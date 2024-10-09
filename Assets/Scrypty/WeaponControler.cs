@@ -7,11 +7,23 @@ public class WeaponControler : MonoBehaviour
     public float fireRate;
     public float damage;
     public float range;
+    public bool isAutomatic;
     public GameObject prefab;
     
-    public RaycastHit Shoot(Vector3 origin, Vector3 direction)
+    float nextTimeToFire = 0f;
+    
+    void Update()
+    {
+        nextTimeToFire -= Time.deltaTime;
+    } 
+    
+    public bool Shoot(Vector3 origin, Vector3 direction)
     {
         RaycastHit hit;
+        if (nextTimeToFire >= 0)
+        {
+            return false;
+        }
         
         if(Physics.Raycast(origin, direction, out hit, range))
         {
@@ -19,6 +31,8 @@ public class WeaponControler : MonoBehaviour
             Instantiate(prefab, hit.point, Quaternion.identity);
         }
         
-        return hit;
+        nextTimeToFire = 1f / fireRate;
+        
+        return true;
     }
 }
