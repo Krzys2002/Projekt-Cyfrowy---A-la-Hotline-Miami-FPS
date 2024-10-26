@@ -10,7 +10,7 @@ public class PlayerControler : MonoBehaviour
     
     [Header("Movement")]
     public float moveSpeed;
-    public float groundDrag;
+    public float gravity = -9.81f;
 
     public Transform cameraOrientation;
     
@@ -22,39 +22,31 @@ public class PlayerControler : MonoBehaviour
     float xRotation;
     float yRotation;
     
-    float horizontalInput;
-    float verticalInput;
+    Vector3 velocity;
     
-    Vector3 moveDirection;
-    
-    Rigidbody rb;
+    CharacterController cc;
     
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+
+        cc = GetComponent<CharacterController>();
+        //rb.freezeRotation = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);
+
+        if (isGrounded)
+        {
+            velocity.y = -2f;
+        }
         
         PlayerRotation();
-        SpeedControl();
-        
-        if(isGrounded)
-        {
-            rb.drag = groundDrag;
-        }
-        else
-        {
-            rb.drag = 0;
-        }
     }
     
     void FixedUpdate()
@@ -81,24 +73,19 @@ public class PlayerControler : MonoBehaviour
     private void PlayerMovement()
     {
         // Get player input
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
         
         // Calculate movement direction
-        moveDirection = (horizontalInput * cameraOrientation.right + verticalInput * transform.forward).normalized;
+        Vector3 moveDirection = (horizontalInput * cameraOrientation.right + verticalInput * transform.forward).normalized;
         
         // Move player
-        rb.AddForce(moveDirection * moveSpeed * 10f);
-    }
-
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        cc.Move(moveDirection * moveSpeed * Time.deltaTime);
         
-        if(flatVel.magnitude > moveSpeed)
-        {
-            flatVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(flatVel.x, rb.velocity.y, flatVel.z);
-        }
+        // Apply gravity
+        velocity.y += gravity * Time.deltaTime;
+        
+        // Move player
+        cc.Move(velocity * Time.deltaTime);
     }
 }
