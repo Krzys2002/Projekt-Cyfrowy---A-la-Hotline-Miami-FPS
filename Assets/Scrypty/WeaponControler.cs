@@ -5,12 +5,14 @@ using UnityEngine;
 public class WeaponControler : MonoBehaviour
 {
     public float fireRate;
-    public float damage;
+    public int damage;
     public float range;
     public bool isAutomatic;
-    public GameObject prefab;
     
     float nextTimeToFire = 0f;
+    
+    private Vector3 origin;
+    private Vector3 direction;
     
     void Update()
     {
@@ -27,12 +29,25 @@ public class WeaponControler : MonoBehaviour
         
         if(Physics.Raycast(origin, direction, out hit, range))
         {
-            Debug.Log("Hit: " + hit.transform.name);
-            Instantiate(prefab, hit.point, Quaternion.identity);
+            this.direction = direction;
+            this.origin = origin;
+            //Debug.Log("Hit: " + hit.transform.name);
+            BulletHitControler hitControler = hit.transform.GetComponent<BulletHitControler>();
+            if(hitControler != null)
+            {
+                hitControler.Hit(hit, damage);
+            }
         }
         
         nextTimeToFire = 1f / fireRate;
         
         return true;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        
+        Gizmos.DrawRay(origin, direction * 10f);
     }
 }

@@ -9,12 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 656256577705495086}
-  - component: {fileID: 4634845502583724923}
   - component: {fileID: 5221723266410974655}
+  - component: {fileID: 569550736498947514}
   - component: {fileID: 5470405456020392130}
+  - component: {fileID: 5238040058967487678}
+  - component: {fileID: 6553385922410293660}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,33 +39,6 @@ Transform:
   - {fileID: 613579080996986859}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &4634845502583724923
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118323264764761537}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &5221723266410974655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,12 +54,27 @@ MonoBehaviour:
   sensX: 3000
   sensY: 3000
   moveSpeed: 7
-  groundDrag: 9
+  gravity: -9.81
   cameraOrientation: {fileID: 0}
   playerHeight: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &569550736498947514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118323264764761537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa86f60713c794769853f773f294c0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  timeFromLastHitToRegen: 1.5
+  regenHpPerSecond: 5
 --- !u!114 &5470405456020392130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +89,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 2654650594279056326}
   cameraOrientation: {fileID: 0}
+--- !u!114 &5238040058967487678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118323264764761537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae0b83f5ce36463e9e4f1afaf09a19d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  cameraPoint: {fileID: 4053401871199469807}
+--- !u!143 &6553385922410293660
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118323264764761537}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3295536412989179029
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,9 +141,10 @@ GameObject:
   - component: {fileID: 1575636596877297249}
   - component: {fileID: 153897205969856250}
   - component: {fileID: 9092050423240960794}
+  - component: {fileID: 3018775474193918218}
   m_Layer: 0
   m_Name: Player_Model
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,6 +237,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3018775474193918218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3295536412989179029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c069c8a58074181a3529b2a945d373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 569550736498947514}
+        m_TargetAssemblyTypeName: PlayerHpControler, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4012270024015456069
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,11 +382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c434a4d363f5840e7b56a06cf127f151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 5
-  damage: 1
+  fireRate: 10
+  damage: 5
   range: 100
   isAutomatic: 1
-  prefab: {fileID: 178059299231706307, guid: 5f6f13e2384f74d42961c73de51f34cd, type: 3}
 --- !u!1 &4108621265074767209
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +411,7 @@ Transform:
   m_GameObject: {fileID: 4108621265074767209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.42, z: 0}
+  m_LocalPosition: {x: 0, y: 0.752, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

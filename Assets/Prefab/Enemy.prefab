@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6287342678879663086}
   - component: {fileID: 4150568068925609533}
+  - component: {fileID: 5383462753890531032}
+  - component: {fileID: 5808000648633695536}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -31,7 +33,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6163210545613830628}
-  - {fileID: 2835238633623629479}
   - {fileID: 5277250087073349096}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,8 +61,50 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5383462753890531032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3560210670660641252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f330a48a9dc3e40e98b5ac5e0bac243a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponControler: {fileID: 7306033503121029881}
+  maxHp: 25
+  accuracy: 0.5
+--- !u!114 &5808000648633695536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3560210670660641252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c069c8a58074181a3529b2a945d373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5383462753890531032}
+        m_TargetAssemblyTypeName: EnemyControler, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6555659526515400745
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +118,7 @@ GameObject:
   - component: {fileID: 2916450069550861520}
   - component: {fileID: 6576268269684647091}
   m_Layer: 0
-  m_Name: Player_Model
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,39 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c434a4d363f5840e7b56a06cf127f151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 5
-  damage: 1
+  fireRate: 0.5
+  damage: 5
   range: 100
   isAutomatic: 1
-  prefab: {fileID: 178059299231706307, guid: 5f6f13e2384f74d42961c73de51f34cd, type: 3}
---- !u!1 &8096838026955973918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2835238633623629479}
-  m_Layer: 0
-  m_Name: CameraPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2835238633623629479
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8096838026955973918}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.42, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6287342678879663086}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
