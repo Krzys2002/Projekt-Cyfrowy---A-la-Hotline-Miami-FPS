@@ -5,10 +5,9 @@ using UnityEngine;
 public class WeaponControler : MonoBehaviour
 {
     public float fireRate;
-    public float damage;
+    public int damage;
     public float range;
     public bool isAutomatic;
-    public GameObject prefab;
     
     float nextTimeToFire = 0f;
     
@@ -28,7 +27,11 @@ public class WeaponControler : MonoBehaviour
         if(Physics.Raycast(origin, direction, out hit, range))
         {
             Debug.Log("Hit: " + hit.transform.name);
-            Instantiate(prefab, hit.point, Quaternion.identity);
+            BulletHitControler hitControler = hit.transform.GetComponent<BulletHitControler>();
+            if(hitControler != null)
+            {
+                hitControler.Hit(hit, damage);
+            }
         }
         
         nextTimeToFire = 1f / fireRate;
