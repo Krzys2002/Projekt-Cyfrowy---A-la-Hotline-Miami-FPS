@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class CameraControler : MonoBehaviour
 {
-    public Transform point;
+    public Camera mainCamera;
+    public Transform cameraPoint;
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = point.position;
+        if(cameraPoint == null || mainCamera == null)
+        {
+            Debug.LogError("Camera or camera point not set.");
+            return;
+        }
+        mainCamera.transform.position = cameraPoint.position;
     }
 }
