@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 569550736498947514}
   - component: {fileID: 5470405456020392130}
   - component: {fileID: 5238040058967487678}
-  - component: {fileID: 6216646360088305850}
   - component: {fileID: 6553385922410293660}
   m_Layer: 0
   m_Name: Player
@@ -55,7 +54,7 @@ MonoBehaviour:
   sensX: 3000
   sensY: 3000
   moveSpeed: 7
-  groundDrag: 9
+  gravity: -9.81
   cameraOrientation: {fileID: 0}
   playerHeight: 2
   groundLayer:
@@ -104,33 +103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   cameraPoint: {fileID: 4053401871199469807}
---- !u!114 &6216646360088305850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118323264764761537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71c069c8a58074181a3529b2a945d373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 569550736498947514}
-        m_TargetAssemblyTypeName: PlayerHpControler, Assembly-CSharp
-        m_MethodName: TakeDamage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!143 &6553385922410293660
 CharacterController:
   m_ObjectHideFlags: 0
@@ -169,9 +141,10 @@ GameObject:
   - component: {fileID: 1575636596877297249}
   - component: {fileID: 153897205969856250}
   - component: {fileID: 9092050423240960794}
+  - component: {fileID: 3018775474193918218}
   m_Layer: 0
   m_Name: Player_Model
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -264,6 +237,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3018775474193918218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3295536412989179029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c069c8a58074181a3529b2a945d373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 569550736498947514}
+        m_TargetAssemblyTypeName: PlayerHpControler, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4012270024015456069
 GameObject:
   m_ObjectHideFlags: 0
