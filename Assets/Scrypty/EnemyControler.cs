@@ -6,6 +6,7 @@ public class EnemyControler : MonoBehaviour
 {
     public WeaponControler weaponControler;
     public int maxHp;
+    public float accuracy = 1f;
     
     
     static float rotationSpeed = 150f;
@@ -15,6 +16,7 @@ public class EnemyControler : MonoBehaviour
     private Ray[] rays = new Ray[5];
     private Quaternion targetRotation;
     private bool isLookingAtPlayer = false;
+    private System.Random random;
     
     // Enemy health
     private int currentHp;
@@ -23,6 +25,8 @@ public class EnemyControler : MonoBehaviour
     void Start()
     {
         playerTransform = GameObject.FindWithTag("Player").transform;
+        
+        random = new System.Random();
         if(playerTransform == null)
         {
             Debug.LogError("Player not found.");
@@ -36,7 +40,7 @@ public class EnemyControler : MonoBehaviour
         currentHp = maxHp;
         StartCoroutine(LookAtPlayerCoroutine());
     }
-
+    
     void Update()
     {
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
@@ -44,10 +48,7 @@ public class EnemyControler : MonoBehaviour
         transform.rotation =
             Quaternion.RotateTowards(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
 
-        if (isLookingAtPlayer)
-        {
-            weaponControler.Shoot(transform.position, transform.forward);
-        }
+        
     }
 
     private IEnumerator LookAtPlayerCoroutine()
@@ -79,14 +80,27 @@ public class EnemyControler : MonoBehaviour
                             isLookingAtPlayer = true;
                             break;
                         }
-                    }
 
-                    if(ray.direction == rays[rays.Length - 1].direction)
-                    {
-                        isLookingAtPlayer = false;
-                    }
+                        if(ray.direction == rays[rays.Length - 1].direction)
+                        {
+                            //Debug.Log("Enemy is not looking at the player.");
+                            isLookingAtPlayer = false;
+                        }
+                    } 
+                    
                 }
             }
+            
+            if (isLookingAtPlayer)
+            {
+                //Debug.Log("Enemy is looking directly at the player.");
+                Vector3 direction = transform.forward +
+                                    (Quaternion.Euler(random.Next(-6, 6) * (1.1f - accuracy),
+                                        random.Next(-45, 45) * (1.1f - accuracy), 0) * transform.forward);
+                weaponControler.Shoot(transform.position, direction);
+            
+            }
+            
             yield return new WaitForSeconds(0.1f); // 10 times per second
         }
     }
@@ -107,6 +121,7 @@ public class EnemyControler : MonoBehaviour
     
     public void TakeDamage(RaycastHit hit, int damage)
     {
+        Debug.Log("Enemy hit by: " + hit.transform.name + " for " + damage + " damage.");
         currentHp -= damage;
         if (currentHp <= 0)
         {

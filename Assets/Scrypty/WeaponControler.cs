@@ -11,6 +11,9 @@ public class WeaponControler : MonoBehaviour
     
     float nextTimeToFire = 0f;
     
+    private Vector3 origin;
+    private Vector3 direction;
+    
     void Update()
     {
         nextTimeToFire -= Time.deltaTime;
@@ -26,7 +29,9 @@ public class WeaponControler : MonoBehaviour
         
         if(Physics.Raycast(origin, direction, out hit, range))
         {
-            Debug.Log("Hit: " + hit.transform.name);
+            this.direction = direction;
+            this.origin = origin;
+            //Debug.Log("Hit: " + hit.transform.name);
             BulletHitControler hitControler = hit.transform.GetComponent<BulletHitControler>();
             if(hitControler != null)
             {
@@ -37,5 +42,12 @@ public class WeaponControler : MonoBehaviour
         nextTimeToFire = 1f / fireRate;
         
         return true;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        
+        Gizmos.DrawRay(origin, direction * 10f);
     }
 }

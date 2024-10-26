@@ -32,7 +32,7 @@ public class PlayerHpControler : MonoBehaviour
     
     public void TakeDamage(RaycastHit hit, int damage)
     {
-        Debug.Log("Player hit by: " + hit.transform.name + " for " + damage + " damage.");
+        Debug.LogWarning("Player hit by: " + hit.transform.name + " for " + damage + " damage.");
         currentHp -= damage;
         currentHp = Mathf.Clamp(currentHp, 0, maxHp);
         timeFromLastHit = 0f;
