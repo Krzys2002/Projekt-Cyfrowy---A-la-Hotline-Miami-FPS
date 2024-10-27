@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -41,7 +42,12 @@ public class EnemyControler : MonoBehaviour
         currentHp = maxHp;
         StartCoroutine(LookAtPlayerCoroutine());
     }
-    
+
+    private void OnEnable()
+    {
+        StartCoroutine(LookAtPlayerCoroutine());
+    }
+
     void Update()
     {
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
@@ -49,7 +55,15 @@ public class EnemyControler : MonoBehaviour
         transform.rotation =
             Quaternion.RotateTowards(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
 
-        
+        if (isLookingAtPlayer)
+        {
+            //Debug.Log("Enemy is looking directly at the player.");
+            Vector3 direction = transform.forward +
+                                (Quaternion.Euler(random.Next(-6, 6) * (1.1f - accuracy),
+                                    random.Next(-45, 45) * (1.1f - accuracy), 0) * transform.forward);
+            weaponControler.Shoot(transform.position, direction);
+            
+        }
     }
 
     private IEnumerator LookAtPlayerCoroutine()
@@ -92,15 +106,7 @@ public class EnemyControler : MonoBehaviour
                 }
             }
             
-            if (isLookingAtPlayer)
-            {
-                //Debug.Log("Enemy is looking directly at the player.");
-                Vector3 direction = transform.forward +
-                                    (Quaternion.Euler(random.Next(-6, 6) * (1.1f - accuracy),
-                                        random.Next(-45, 45) * (1.1f - accuracy), 0) * transform.forward);
-                weaponControler.Shoot(transform.position, direction);
             
-            }
             
             yield return new WaitForSeconds(0.1f); // 10 times per second
         }

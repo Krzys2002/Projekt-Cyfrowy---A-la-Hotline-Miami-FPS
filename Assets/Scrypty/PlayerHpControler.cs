@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHpControler : MonoBehaviour
 { 
@@ -63,5 +64,7 @@ public class PlayerHpControler : MonoBehaviour
     {
         // Handle player death (e.g., respawn, game over)
         Debug.Log("Player has died.");
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 }
