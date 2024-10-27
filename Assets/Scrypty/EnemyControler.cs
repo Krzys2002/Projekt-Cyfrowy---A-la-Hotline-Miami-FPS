@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyControler : MonoBehaviour
@@ -133,6 +134,7 @@ public class EnemyControler : MonoBehaviour
     {
         // Handle enemy death (e.g., play animation, drop loot)
         Debug.Log("Enemy has died.");
-        Destroy(gameObject);
+        EventManager.Enemies.OnAnyEnemyDeath.Invoke(this);
+        this.GameObject().SetActive(false);
     }
 }
