@@ -2901,21 +2901,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 118323264764761537, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 569550736498947514, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
-      propertyPath: maxHp
-      value: 35
-      objectReference: {fileID: 0}
     - target: {fileID: 569550736498947514, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
       propertyPath: regenHpPerSecond
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 569550736498947514, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
-      propertyPath: timeFromLastHitToRegen
-      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 656256577705495086, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2964,18 +2952,6 @@ PrefabInstance:
     - target: {fileID: 2654650594279056326, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
       propertyPath: isAutomatic
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3295536412989179029, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012270024015456069, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4108621265074767209, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5221723266410974655, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
       propertyPath: sensX
