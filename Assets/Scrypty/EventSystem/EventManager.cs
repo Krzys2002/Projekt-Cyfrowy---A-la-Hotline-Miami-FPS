@@ -39,9 +39,9 @@ public class EventManager
         
         public class OnEnemyDeath : UnityEvent<Component> { }
 
-        private Dictionary<GameObject, OnEnemyDeath> mapOnEnemyDeath = new Dictionary<GameObject, OnEnemyDeath>();
+        private Dictionary<string, OnEnemyDeath> mapOnEnemyDeath = new Dictionary<string, OnEnemyDeath>();
         
-        public OnEnemyDeath OnEnemyDeathFilter(GameObject subLevel)
+        public OnEnemyDeath OnEnemyDeathFilter(string subLevel)
         {
             mapOnEnemyDeath.TryAdd(subLevel, new OnEnemyDeath());
             return mapOnEnemyDeath[subLevel];

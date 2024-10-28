@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: "Assets/Scenes/Pokazo\u0301wki/Krzysztof/test.unity"
+    guid: 528b7c4562c8d4f9f9220b2fc568685a
+  - enabled: 1
+    path: "Assets/Scenes/Pokazo\u0301wki/Krzysztof/KPort.unity"
+    guid: 463a6e51489c24afeae7e3e56a56189d
   m_configObjects: {}

@@ -20,6 +20,7 @@ public class Gate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("start gate");
         subLevelA.addGate(this);
         subLevelB.addGate(this);
     }

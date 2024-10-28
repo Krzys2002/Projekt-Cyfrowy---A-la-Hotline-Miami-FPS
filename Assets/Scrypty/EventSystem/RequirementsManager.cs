@@ -17,7 +17,7 @@ public class RequirementsManager : MonoBehaviour
     {
         foreach (var requirement in requirements)
         {
-            requirement.OnStart();
+            StartCoroutine(requirement.OnStart());
             requirement.OnCompleted += CheckRequirements; 
         }
     }

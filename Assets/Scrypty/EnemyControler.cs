@@ -19,10 +19,17 @@ public class EnemyControler : MonoBehaviour
     private Quaternion targetRotation;
     private bool isLookingAtPlayer = false;
     private System.Random random;
+    private string[] levelRegisterArray;
     
     // Enemy health
     private int currentHp;
-    
+
+    private void Awake()
+    {
+        levelRegisterArray = new string[1];
+        levelRegisterArray[0] = "null";
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +71,11 @@ public class EnemyControler : MonoBehaviour
             weaponControler.Shoot(transform.position, direction);
             
         }
+    }
+
+    public void LevelRegister(string[] levels)
+    {
+        levelRegisterArray = levels;
     }
 
     private IEnumerator LookAtPlayerCoroutine()
@@ -139,8 +151,18 @@ public class EnemyControler : MonoBehaviour
     private void Die()
     {
         // Handle enemy death (e.g., play animation, drop loot)
-        Debug.Log("Enemy has died.");
-        EventManager.Enemies.OnAnyEnemyDeath.Invoke(this);
+        Debug.Log("Enemy has died."); 
+        if (EventManager.Enemies.OnAnyEnemyDeath != null)
+        {
+            EventManager.Enemies.OnAnyEnemyDeath.Invoke(this);
+        }
+        
+        foreach (string levelName in levelRegisterArray)
+        {
+            EventManager.Enemies.OnEnemyDeathFilter(levelName).Invoke(this);
+        }
         this.GameObject().SetActive(false);
     }
+    
+    
 }

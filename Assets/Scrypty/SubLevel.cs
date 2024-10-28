@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SubLevel : MonoBehaviour
@@ -12,10 +13,14 @@ public class SubLevel : MonoBehaviour
     
     GameObject enemiesObject;
 
+    private string[] levelRegisterArray;
+
     private void Awake()
     {
         enemies = new List<GameObject>();
         gates = new List<Gate>();
+        levelRegisterArray = new string[1];
+        levelRegisterArray[0] = gameObject.name;
         Transform[] children = gameObject.GetComponentsInChildren<Transform>();
 
         foreach (Transform child in children)
@@ -25,7 +30,7 @@ public class SubLevel : MonoBehaviour
             {
                 Transform[] enemiesTransforms = child.GetComponentsInChildren<Transform>();
                 
-                Debug.Log("Enemies count: " + enemiesTransforms.Length);
+                //Debug.Log("Enemies count: " + enemiesTransforms.Length);
                 
                 enemiesObject = child.gameObject;
 
@@ -40,6 +45,13 @@ public class SubLevel : MonoBehaviour
                 break;
             }
         }
+        
+        foreach(SubLevel subLevel in subLevels)
+        {
+            enemies.AddRange(subLevel.getEnemies());
+        }
+        
+        Debug.Log("SubLevel " + gameObject.name + " has " + enemies.Count + " enemies.");
     }
     
 
@@ -47,14 +59,7 @@ public class SubLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(SubLevel subLevel in subLevels)
-        {
-            enemies.AddRange(subLevel.getEnemies());
-        }
         
-        Debug.Log("SubLevel " + gameObject.name + " has " + enemies.Count + " enemies.");
-        
-        DeactivateEnemies();
     }
     
     
@@ -65,11 +70,13 @@ public class SubLevel : MonoBehaviour
     
     public void playerEnter(Gate enteredGate)
     {
+        Debug.Log("Player enter " + gameObject.name);
+        Debug.Log("Number of gates: " + gates.Count);
         foreach (Gate gate in gates)
         {
             if(gate != enteredGate)
             {
-                Debug.Log("Gate " + gate.gameObject.name + " is closing sublevels.");
+                Debug.Log("Activate clouse sublevels at gate " + gate.gameObject.name);
                 gate.activateClouseSublevels(this);
             }
         }
@@ -102,7 +109,33 @@ public class SubLevel : MonoBehaviour
     public void DeactivateEnemies()
     {
         Debug.Log("Deactivating enemies in " + gameObject.name);
-        Debug.Log(enemiesObject);
+        //Debug.Log(enemiesObject.name);
         enemiesObject.SetActive(false);
+    }
+
+    public void LevelsRegisters(string[] levels)
+    {
+        levelRegisterArray = new string[levels.Length + 1];
+        levels.CopyTo(levelRegisterArray, 0);
+        levelRegisterArray[levelRegisterArray.Length - 1] = gameObject.name;
+
+        foreach (SubLevel subLevel in subLevels)
+        {
+            subLevel.LevelsRegisters(levelRegisterArray);
+        }
+
+        bool areEnemiesActive = enemiesObject.activeSelf;
+        ActivateEnemies();
+        
+
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EnemyControler>().LevelRegister(levelRegisterArray);
+        }
+
+        if (!areEnemiesActive)
+        {
+            DeactivateEnemies();
+        }
     }
 }

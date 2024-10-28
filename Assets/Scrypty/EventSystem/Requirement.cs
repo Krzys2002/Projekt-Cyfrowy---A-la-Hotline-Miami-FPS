@@ -35,8 +35,10 @@ public class Requirement
         OnStart();
     }
     
-    public void OnStart()
+    public IEnumerator OnStart()
     {
+        yield return new WaitForEndOfFrame();
+        
         switch (type)
         {
             case RequirementType.Interaction:
@@ -48,7 +50,20 @@ public class Requirement
             case RequirementType.EnemyDeathCount:
                 if (target != null)
                 {
-                    EventManager.Enemies.OnEnemyDeathFilter(target).AddListener(Check);
+                    Debug.Log("Add listener");
+                    EventManager.Enemies.OnEnemyDeathFilter(target.name).AddListener(Check);
+                    
+                    if(countOrIndex == 0)
+                    {
+                        if(target.tag == "SubLevel")
+                        {
+                            countOrIndex = target.GetComponent<SubLevel>().getEnemies().Count;
+                        }
+                        else if(target.tag == "Level")
+                        {
+                            countOrIndex = target.GetComponent<LevelControler>().getEnemies().Count;
+                        }
+                    }
                 }
                 else
                 {
@@ -77,8 +92,10 @@ public class Requirement
 
     private void Check(GameObject target, int id)
     {
+        //Debug.Log("Check Interaction");
         if (target == this.target && id == countOrIndex)
         {
+            //Debug.Log("Interaction Completed");
             isCompleted = true;
             OnCompleted.Invoke();
         }

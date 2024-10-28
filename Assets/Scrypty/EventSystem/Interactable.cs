@@ -20,6 +20,10 @@ public class Interactable : MonoBehaviour
         if (isInteractable)
         {
             OnInteract.Invoke(gameObject);
+            if (EventManager.Objects.OnObjectInteract != null)
+            {
+                EventManager.Objects.OnObjectInteract.Invoke(gameObject, 0);
+            }
         }
     }
 }
