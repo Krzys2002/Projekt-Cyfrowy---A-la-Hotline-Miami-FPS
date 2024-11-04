@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DialogueEditor;
 
-public class SiergiejStart : MonoBehaviour
+public class ArtemStart : MonoBehaviour
 {
     [SerializeField] private NPCConversation myConversation;
 
