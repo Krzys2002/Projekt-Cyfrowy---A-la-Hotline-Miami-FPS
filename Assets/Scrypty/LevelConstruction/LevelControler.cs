@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class LevelControler : MonoBehaviour
 {
+    // Requirements manager reference
     public RequirementsManager requirementsManager;
     
+    // Start sublevel
     public SubLevel startSubLevel;
     
+    // Sublevels in level
     public List<SubLevel> subLevels;
     
+    // Enemies in level
     List<GameObject> enemies;
     
     
@@ -18,22 +22,24 @@ public class LevelControler : MonoBehaviour
     {
         enemies = new List<GameObject>();
         
+        // Get all enemies in level
         foreach(SubLevel subLevel in subLevels)
         {
             enemies.AddRange(subLevel.getEnemies());
         }
         
+        // Register level in level register
         string[] levelReg = new string[1];
         levelReg[0] = gameObject.name;
         
+        // Register level in sublevels
         foreach (SubLevel subLevel in subLevels)
         {
-            Debug.Log("register " + levelReg[0]);
             subLevel.LevelsRegisters(levelReg);
             subLevel.DeactivateEnemies();
         }
 
-
+        // Start game
         StartCoroutine(StartGame());
     }
     
@@ -42,17 +48,13 @@ public class LevelControler : MonoBehaviour
         // Wait for the end of the frame to ensure Start has completed
         yield return new WaitForEndOfFrame();
         
+        // Activate start sublevel
         startSubLevel.ActivateEnemies();
-        Debug.Log("Player enter");
+        // Player enters start sublevel
         startSubLevel.playerEnter(null);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
+    // Get enemies in level
     public List<GameObject> getEnemies()
     {
         return enemies;

@@ -72,6 +72,8 @@ public class EnemyControler : MonoBehaviour
     // OnEnable is called when the object becomes enabled and active
     private void OnEnable()
     {
+        // Get player transform
+        playerTransform = GameObject.FindWithTag("Player").transform;
         // start looking at player coroutine
         StartCoroutine(LookAtPlayerCoroutine());
     }
@@ -79,68 +81,78 @@ public class EnemyControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Rotate enemy towards player
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        // Check if angle is greater than 90
         float currentRotationSpeed = angle > 90f ? rotationSpeed * 3f : rotationSpeed;
+        // Rotate enemy
         transform.rotation =
             Quaternion.RotateTowards(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
-
+        
+        // Check if enemy is looking at player
         if (isLookingAtPlayer)
         {
-            //Debug.Log("Enemy is looking directly at the player.");
+            // create random deviation from the direction
             Vector3 direction = transform.forward +
                                 (Quaternion.Euler(random.Next(-6, 6) * (1.1f - accuracy),
                                     random.Next(-45, 45) * (1.1f - accuracy), 0) * transform.forward);
+            // Shoot
             weaponControler.Shoot(transform.position, direction);
-            
         }
     }
-
+    
+    // Method to register levels
     public void LevelRegister(string[] levels)
     {
         levelRegisterArray = levels;
     }
-
+    
+    // Coroutine to look at player
     private IEnumerator LookAtPlayerCoroutine()
     {
         while (true)
         {
-            if (playerTransform != null)
+            if (playerTransform == null)
             {
-                targetRotation = Quaternion.LookRotation(playerTransform.position - transform.position);
-                
-                // Perform a raycast to check if the enemy is looking directly at the player
-                Vector3 directionToPlayer = playerTransform.position - transform.position;
-                rays[0] = new Ray(transform.position, directionToPlayer);
-                rays[1] = new Ray(transform.position, Quaternion.Euler(0, 0.4f, 0) * directionToPlayer);
-                rays[2] = new Ray(transform.position, Quaternion.Euler(0, -0.4f, 0) * directionToPlayer);
-                rays[3] = new Ray(transform.position, Quaternion.Euler(0, 0.8f, 0) * directionToPlayer);
-                rays[4] = new Ray(transform.position, Quaternion.Euler(-0, -0.8f, 0) * directionToPlayer);
-
-                foreach (Ray ray in rays)
-                {
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        if (hit.transform.CompareTag("Player"))
-                        {
-                            //Debug.Log("Enemy is looking directly at the player.");
-                            // Additional actions can be performed here
-                            targetRotation = Quaternion.LookRotation(ray.direction);
-                            isLookingAtPlayer = true;
-                            break;
-                        }
-
-                        if(ray.direction == rays[rays.Length - 1].direction)
-                        {
-                            //Debug.Log("Enemy is not looking at the player.");
-                            isLookingAtPlayer = false;
-                        }
-                    } 
-                    
-                }
+                Debug.LogError("Player not found.");
+                // exit coroutine
+                yield break;
             }
             
+            // Set target rotation to look at player
+            targetRotation = Quaternion.LookRotation(playerTransform.position - transform.position);
+                
+            // Perform a raycast to check if the enemy is looking directly at the player
+            Vector3 directionToPlayer = playerTransform.position - transform.position;
+            rays[0] = new Ray(transform.position, directionToPlayer);
+            rays[1] = new Ray(transform.position, Quaternion.Euler(0, 0.4f, 0) * directionToPlayer);
+            rays[2] = new Ray(transform.position, Quaternion.Euler(0, -0.4f, 0) * directionToPlayer);
+            rays[3] = new Ray(transform.position, Quaternion.Euler(0, 0.8f, 0) * directionToPlayer);
+            rays[4] = new Ray(transform.position, Quaternion.Euler(-0, -0.8f, 0) * directionToPlayer);
+
+            foreach (Ray ray in rays)
+            {
+                RaycastHit hit;
+                // Check if the ray hit something
+                if (Physics.Raycast(ray, out hit))
+                {
+                    // Check if the ray is looking at the player
+                    if (hit.transform.CompareTag("Player"))
+                    {
+                        // Set target rotation to look at player
+                        targetRotation = Quaternion.LookRotation(ray.direction);
+                        isLookingAtPlayer = true;
+                        break;
+                    }
+                        
+                    // Check if the last ray is not looking at the player
+                    if(ray.direction == rays[rays.Length - 1].direction)
+                    {
+                        isLookingAtPlayer = false;
+                    }
+                } 
+                    
+            }
             
             
             yield return new WaitForSeconds(0.1f); // 10 times per second

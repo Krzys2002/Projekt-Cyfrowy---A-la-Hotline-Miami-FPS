@@ -30,11 +30,11 @@ public class PlayerControler : MonoBehaviour
     void Start()
     {
         // Lock cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
+        // Get character controller
         cc = GetComponent<CharacterController>();
-        //rb.freezeRotation = true;
     }
 
     // Update is called once per frame

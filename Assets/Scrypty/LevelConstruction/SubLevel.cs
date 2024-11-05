@@ -77,7 +77,7 @@ public class SubLevel : MonoBehaviour
             if(gate != enteredGate)
             {
                 Debug.Log("Activate clouse sublevels at gate " + gate.gameObject.name);
-                gate.activateClouseSublevels(this);
+                gate.activateCloseSublevels(this);
             }
         }
     }
@@ -89,7 +89,7 @@ public class SubLevel : MonoBehaviour
         {
             if(gate != exitedGate)
             {
-                gate.deactivateClouseSublevels(this);
+                gate.deactivateCloseSublevels(this);
             }
         }
     }
