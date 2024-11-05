@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 569550736498947514}
   - component: {fileID: 5470405456020392130}
   - component: {fileID: 5238040058967487678}
-  - component: {fileID: 6553385922410293660}
   - component: {fileID: 6694594595658083195}
-  m_Layer: 7
+  - component: {fileID: 6553385922410293660}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -104,6 +104,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   cameraPoint: {fileID: 4053401871199469807}
+--- !u!114 &6694594595658083195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118323264764761537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6813b7a9b09414264927e9423d7451ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &6553385922410293660
 CharacterController:
   m_ObjectHideFlags: 0
@@ -130,18 +142,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6694594595658083195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118323264764761537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6813b7a9b09414264927e9423d7451ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3295536412989179029
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 153897205969856250}
   - component: {fileID: 9092050423240960794}
   - component: {fileID: 3018775474193918218}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Player_Model
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 2847791562668449930}
   - component: {fileID: 2618292285724720955}
   - component: {fileID: 2654650594279056326}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4053401871199469807}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: CameraPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

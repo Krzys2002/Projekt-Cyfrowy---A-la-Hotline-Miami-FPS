@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,15 @@ public class WeaponControler : MonoBehaviour
     
     private Vector3 origin;
     private Vector3 direction;
-    
+
+    private int layer_mask;
+
+
+    private void Start()
+    {
+        layer_mask = LayerMask.GetMask("Hitable");
+    }
+
     void Update()
     {
         // Decrease time to next fire
@@ -36,8 +45,10 @@ public class WeaponControler : MonoBehaviour
             return false;
         }
         
+        //Debug.Log(layer_mask);
+        
         // Check if raycast hit something
-        if(Physics.Raycast(origin, direction, out hit, range))
+        if(Physics.Raycast(origin, direction, out hit, range, layer_mask))
         {
             // Set origin and direction
             this.direction = direction;

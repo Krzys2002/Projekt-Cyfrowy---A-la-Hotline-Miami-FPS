@@ -42,14 +42,19 @@ public class PlayerInteractionControler : MonoBehaviour
     // Coroutine to check for interaction
     IEnumerator CheckInteraction()
     {
-        // Raycast for detecting interactable objects
-        RaycastHit hit;
-        // Check if raycast hit something
-        if (Physics.Raycast(camera.position, camera.forward, out hit, 3))
+        while (enabled)
         {
-            // Get interactable component from hit object
-            currentInteractable = hit.collider.GetComponent<Interactable>();
+            // Debug.Log("Checking for interaction");
+            // Raycast for detecting interactable objects
+            RaycastHit hit;
+            // Check if raycast hit something
+            if (Physics.Raycast(camera.position, camera.forward, out hit, 3))
+            {
+                // Get interactable component from hit object
+                currentInteractable = hit.collider.GetComponent<Interactable>();
+            }
+            yield return new WaitForSeconds(0.1f); // 10 time pre second
         }
-        yield return new WaitForSeconds(0.1f); // 10 time pre second
+        
     }
 }

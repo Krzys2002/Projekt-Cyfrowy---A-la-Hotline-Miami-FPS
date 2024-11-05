@@ -51,7 +51,7 @@ public class SubLevel : MonoBehaviour
             enemies.AddRange(subLevel.getEnemies());
         }
         
-        Debug.Log("SubLevel " + gameObject.name + " has " + enemies.Count + " enemies.");
+        //Debug.Log("SubLevel " + gameObject.name + " has " + enemies.Count + " enemies.");
     }
     
 
@@ -70,15 +70,20 @@ public class SubLevel : MonoBehaviour
     
     public void playerEnter(Gate enteredGate)
     {
-        Debug.Log("Player enter " + gameObject.name);
-        Debug.Log("Number of gates: " + gates.Count);
+        //Debug.Log("Player enter " + gameObject.name);
+        //Debug.Log("Number of gates: " + gates.Count);
         foreach (Gate gate in gates)
         {
             if(gate != enteredGate)
             {
-                Debug.Log("Activate clouse sublevels at gate " + gate.gameObject.name);
+                //Debug.Log("Activate clouse sublevels at gate " + gate.gameObject.name);
                 gate.activateCloseSublevels(this);
             }
+        }
+
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EnemyControler>().SetCanMove(true);
         }
     }
 
@@ -102,13 +107,13 @@ public class SubLevel : MonoBehaviour
     
     public void ActivateEnemies()
     {
-        Debug.Log("Activating enemies in " + gameObject.name);
+        //Debug.Log("Activating enemies in " + gameObject.name);
         enemiesObject.SetActive(true);
     }
     
     public void DeactivateEnemies()
     {
-        Debug.Log("Deactivating enemies in " + gameObject.name);
+        //Debug.Log("Deactivating enemies in " + gameObject.name);
         //Debug.Log(enemiesObject.name);
         enemiesObject.SetActive(false);
     }

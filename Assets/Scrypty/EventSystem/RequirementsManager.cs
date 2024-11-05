@@ -15,8 +15,10 @@ public class RequirementsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Start all requirements
         foreach (var requirement in requirements)
         {
+            // Start coroutine for each requirement
             StartCoroutine(requirement.OnStart());
             requirement.OnCompleted += CheckRequirements; 
         }
@@ -24,6 +26,7 @@ public class RequirementsManager : MonoBehaviour
     
     public void CheckRequirements()
     {
+        // Check if all requirements are completed
         foreach (var requirement in requirements)
         {
             if (!requirement.IsCompleted())
@@ -31,6 +34,8 @@ public class RequirementsManager : MonoBehaviour
                 return;
             }
         }
+        
+        // if so invoke onRequirementsCompleted event
         onRequirementsCompleted.Invoke();
     }
 }

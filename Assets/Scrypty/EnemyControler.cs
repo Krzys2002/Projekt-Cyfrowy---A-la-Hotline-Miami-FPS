@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyControler : MonoBehaviour
 {
     // Enemy weapon
@@ -30,8 +32,13 @@ public class EnemyControler : MonoBehaviour
     // Level register array
     private string[] levelRegisterArray;
     
+    // NavMeshAgent component
+    private NavMeshAgent agent;
+    
     // Enemy health
     private int currentHp;
+    
+    private bool canMove = false;
 
     // Awake is called when the script instance is being loaded
     private void Awake()
@@ -40,6 +47,8 @@ public class EnemyControler : MonoBehaviour
         levelRegisterArray = new string[1];
         // Set first element to null
         levelRegisterArray[0] = "null";
+        // Get NavMeshAgent component
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Start is called before the first frame update
@@ -67,6 +76,7 @@ public class EnemyControler : MonoBehaviour
         currentHp = maxHp;
         // Start looking at player coroutine
         StartCoroutine(LookAtPlayerCoroutine());
+        StartCoroutine(FollowPlayer());
     }
     
     // OnEnable is called when the object becomes enabled and active
@@ -76,6 +86,7 @@ public class EnemyControler : MonoBehaviour
         playerTransform = GameObject.FindWithTag("Player").transform;
         // start looking at player coroutine
         StartCoroutine(LookAtPlayerCoroutine());
+        StartCoroutine(FollowPlayer());
     }
 
     // Update is called once per frame
@@ -110,7 +121,7 @@ public class EnemyControler : MonoBehaviour
     // Coroutine to look at player
     private IEnumerator LookAtPlayerCoroutine()
     {
-        while (true)
+        while (enabled)
         {
             if (playerTransform == null)
             {
@@ -154,8 +165,26 @@ public class EnemyControler : MonoBehaviour
                     
             }
             
-            
             yield return new WaitForSeconds(0.1f); // 10 times per second
+        }
+    }
+    
+    private IEnumerator FollowPlayer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        
+        while (enabled)
+        {
+            if (!isLookingAtPlayer && canMove)
+            {
+                agent.SetDestination(playerTransform.position);
+            }
+            else
+            {
+                agent.SetDestination(transform.position);
+            }
+            
+            yield return new WaitForSeconds(0.1f);
         }
     }
     
@@ -199,5 +228,10 @@ public class EnemyControler : MonoBehaviour
         this.GameObject().SetActive(false);
     }
     
+    
+    public void SetCanMove(bool canMove)
+    {
+        this.canMove = canMove;
+    }
     
 }

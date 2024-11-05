@@ -18,6 +18,7 @@ public class EventManager
     
     public class ObjectEvents
     {
+        
         public UnityAction<GameObject, int> OnObjectInteract;
     }
     
@@ -25,8 +26,10 @@ public class EventManager
     {
         public class OnFinishLevel : UnityEvent<GameObject> { }
         
+        // map of on finish level events
         private Dictionary<string, OnFinishLevel> mapOnFinishLevel = new Dictionary<string, OnFinishLevel>();
         
+        // filter on finish level event
         public OnFinishLevel OnFinishLevelFilter(string levelName = "")
         {
             mapOnFinishLevel.TryAdd(levelName, new OnFinishLevel());
@@ -38,10 +41,13 @@ public class EventManager
     {
         public UnityAction<Component> OnAnyEnemyDeath;
         
+        // define a UnityEvent that takes a Component as a parameter
         public class OnEnemyDeath : UnityEvent<Component> { }
 
+        // map of on enemy death events
         private Dictionary<string, OnEnemyDeath> mapOnEnemyDeath = new Dictionary<string, OnEnemyDeath>();
         
+        // filter on enemy death event
         public OnEnemyDeath OnEnemyDeathFilter(string subLevel)
         {
             mapOnEnemyDeath.TryAdd(subLevel, new OnEnemyDeath());

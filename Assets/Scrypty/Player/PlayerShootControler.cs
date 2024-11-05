@@ -19,6 +19,7 @@ public class PlayerShootControler : MonoBehaviour
             // Check if player is holding mouse button
             if(Input.GetMouseButton(0))
             {
+                //Debug.Log("Player is holding mouse button");
                 weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
             }
         }
@@ -27,6 +28,7 @@ public class PlayerShootControler : MonoBehaviour
             // Check if player pressed mouse button
             if (Input.GetMouseButtonDown(0))
             {
+                //Debug.Log("Player pressed mouse button");
                 weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
             }
         }
