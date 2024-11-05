@@ -6,57 +6,80 @@ using UnityEngine;
 
 public class EnemyControler : MonoBehaviour
 {
+    // Enemy weapon
     public WeaponControler weaponControler;
+    // Enemy max hp
     public int maxHp;
+    // Enemy accuracy
     public float accuracy = 1f;
     
-    
+    // Enemy rotation speed
     static float rotationSpeed = 150f;
     
     // Enemy vision
+    // Player transform
     private Transform playerTransform;
+    // Enemy rays
     private Ray[] rays = new Ray[5];
+    // Enemy target rotation
     private Quaternion targetRotation;
+    // Is enemy looking at player
     private bool isLookingAtPlayer = false;
+    // Random generator
     private System.Random random;
+    // Level register array
     private string[] levelRegisterArray;
     
     // Enemy health
     private int currentHp;
 
+    // Awake is called when the script instance is being loaded
     private void Awake()
     {
+        // Initialize level register array
         levelRegisterArray = new string[1];
+        // Set first element to null
         levelRegisterArray[0] = "null";
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        // Get player transform
         playerTransform = GameObject.FindWithTag("Player").transform;
         
+        // Initialize random generator
         random = new System.Random();
+        // check if player transform is null
         if(playerTransform == null)
         {
+            // Log error
             Debug.LogError("Player not found.");
             targetRotation = Quaternion.identity;
         }
         else
         {
+            // Set target rotation to look at player
             targetRotation = Quaternion.LookRotation(playerTransform.position - transform.position);
         }
         
+        // Set current hp to max hp
         currentHp = maxHp;
+        // Start looking at player coroutine
         StartCoroutine(LookAtPlayerCoroutine());
     }
-
+    
+    // OnEnable is called when the object becomes enabled and active
     private void OnEnable()
     {
+        // start looking at player coroutine
         StartCoroutine(LookAtPlayerCoroutine());
     }
 
+    // Update is called once per frame
     void Update()
     {
+        
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
         float currentRotationSpeed = angle > 90f ? rotationSpeed * 3f : rotationSpeed;
         transform.rotation =

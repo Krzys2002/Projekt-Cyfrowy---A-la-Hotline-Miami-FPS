@@ -5,28 +5,29 @@ using UnityEngine;
 
 public class PlayerShootControler : MonoBehaviour
 {
+    // Weapon reference
     public WeaponControler weapon;
+    // Camera orientation reference
     public Transform cameraOrientation;
 
     // Update is called once per frame
     void Update()
     {
+        // Check if weapon is automatic
         if(weapon.isAutomatic)
         {
+            // Check if player is holding mouse button
             if(Input.GetMouseButton(0))
             {
                 weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
-                //EventManager.Enemies.OnAnyEnemyDeath.Invoke(this);
-                //Debug.Log("Test1");
             }
         }
         else
         {
+            // Check if player pressed mouse button
             if (Input.GetMouseButtonDown(0))
             {
                 weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
-                //EventManager.Enemies.OnAnyEnemyDeath.Invoke(this);
-                //Debug.Log("Test1");
             }
         }
     }

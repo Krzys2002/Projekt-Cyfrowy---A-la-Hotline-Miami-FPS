@@ -29,8 +29,9 @@ public class PlayerControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Lock cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         cc = GetComponent<CharacterController>();
         //rb.freezeRotation = true;
@@ -39,8 +40,10 @@ public class PlayerControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if player is grounded
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);
-
+    
+        // Reset gravity
         if (isGrounded)
         {
             velocity.y = -2f;
@@ -49,17 +52,20 @@ public class PlayerControler : MonoBehaviour
         PlayerRotation();
     }
     
+    // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
         PlayerMovement();
     }
 
+    // Player camera rotation
     private void PlayerRotation()
     {
         // Get mouse movement
         float mouseX = Input.GetAxis("Mouse X") * sensX * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensY * Time.deltaTime;
         
+        // Calculate rotation
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         
@@ -70,6 +76,7 @@ public class PlayerControler : MonoBehaviour
         cameraOrientation.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
     
+    // Player movement
     private void PlayerMovement()
     {
         // Get player input
