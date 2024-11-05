@@ -12,7 +12,8 @@ public class EventManager
 
     public class PlayerEvents
     {
-        public UnityAction test;
+        public UnityAction OnPlayerEnterDialogue;
+        public UnityAction OnPlayerExitDialogue;
     }
     
     public class ObjectEvents
