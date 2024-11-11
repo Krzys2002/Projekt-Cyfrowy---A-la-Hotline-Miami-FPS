@@ -172,6 +172,7 @@ public class EnemyControler : MonoBehaviour
     private IEnumerator FollowPlayer()
     {
         yield return new WaitForSeconds(0.1f);
+        Debug.Log("Following player.");
         
         while (enabled)
         {

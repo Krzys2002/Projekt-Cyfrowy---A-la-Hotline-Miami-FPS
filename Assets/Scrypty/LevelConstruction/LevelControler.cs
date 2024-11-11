@@ -52,6 +52,7 @@ public class LevelControler : MonoBehaviour
         startSubLevel.ActivateEnemies();
         // Player enters start sublevel
         startSubLevel.playerEnter(null);
+        startSubLevel.ActivateEnemies();
     }
 
     // Get enemies in level
