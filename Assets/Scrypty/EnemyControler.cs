@@ -31,6 +31,8 @@ public class EnemyControler : MonoBehaviour
     private System.Random random;
     // Level register array
     private string[] levelRegisterArray;
+    // in sublevel
+    private SubLevel inSubLevel;
     
     // NavMeshAgent component
     private NavMeshAgent agent;
@@ -109,18 +111,27 @@ public class EnemyControler : MonoBehaviour
                                     random.Next(-45, 45) * (1.1f - accuracy), 0) * transform.forward);
             // Shoot
             weaponControler.Shoot(transform.position, direction);
+            
+            // triger enemies in sublevel
+            if (!canMove)
+            {
+                Debug.Log("Triger");
+                inSubLevel.enableMove();
+            }
         }
     }
     
     // Method to register levels
-    public void LevelRegister(string[] levels)
+    public void LevelRegister(string[] levels, SubLevel subLevel)
     {
         levelRegisterArray = levels;
+        inSubLevel = subLevel;
     }
     
     // Coroutine to look at player
     private IEnumerator LookAtPlayerCoroutine()
     {
+        Debug.Log("looking for player!!!!!!!!!");
         while (enabled)
         {
             if (playerTransform == null)
@@ -147,11 +158,14 @@ public class EnemyControler : MonoBehaviour
                 // Check if the ray hit something
                 if (Physics.Raycast(ray, out hit))
                 {
+                    Debug.Log("hit somefing");
+                    Debug.Log(hit.transform.name);
                     // Check if the ray is looking at the player
                     if (hit.transform.CompareTag("Player"))
                     {
                         // Set target rotation to look at player
                         targetRotation = Quaternion.LookRotation(ray.direction);
+                        Debug.Log("Is looking");
                         isLookingAtPlayer = true;
                         break;
                     }

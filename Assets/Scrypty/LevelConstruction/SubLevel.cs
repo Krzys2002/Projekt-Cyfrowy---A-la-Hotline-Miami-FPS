@@ -15,6 +15,8 @@ public class SubLevel : MonoBehaviour
 
     private string[] levelRegisterArray;
 
+    private bool playerWasInside = false;
+
     private void Awake()
     {
         enemies = new List<GameObject>();
@@ -72,6 +74,7 @@ public class SubLevel : MonoBehaviour
     {
         //Debug.Log("Player enter " + gameObject.name);
         //Debug.Log("Number of gates: " + gates.Count);
+        playerWasInside = true;
         foreach (Gate gate in gates)
         {
             if(gate != enteredGate)
@@ -81,10 +84,7 @@ public class SubLevel : MonoBehaviour
             }
         }
 
-        foreach (GameObject enemy in enemies)
-        {
-            enemy.GetComponent<EnemyControler>().SetCanMove(true);
-        }
+        enableMove();
     }
 
     
@@ -115,7 +115,10 @@ public class SubLevel : MonoBehaviour
     {
         //Debug.Log("Deactivating enemies in " + gameObject.name);
         //Debug.Log(enemiesObject.name);
-        enemiesObject.SetActive(false);
+        if (!playerWasInside)
+        {
+            enemiesObject.SetActive(false);
+        }
     }
 
     public void LevelsRegisters(string[] levels)
@@ -135,12 +138,20 @@ public class SubLevel : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
-            enemy.GetComponent<EnemyControler>().LevelRegister(levelRegisterArray);
+            enemy.GetComponent<EnemyControler>().LevelRegister(levelRegisterArray, this);
         }
 
         if (!areEnemiesActive)
         {
             DeactivateEnemies();
+        }
+    }
+
+    public void enableMove()
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EnemyControler>().SetCanMove(true);
         }
     }
 }
