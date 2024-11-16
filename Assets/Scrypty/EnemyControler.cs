@@ -115,7 +115,7 @@ public class EnemyControler : MonoBehaviour
             // triger enemies in sublevel
             if (!canMove)
             {
-                Debug.Log("Triger");
+                //Debug.Log("Triger");
                 inSubLevel.enableMove();
             }
         }
@@ -131,12 +131,12 @@ public class EnemyControler : MonoBehaviour
     // Coroutine to look at player
     private IEnumerator LookAtPlayerCoroutine()
     {
-        Debug.Log("looking for player!!!!!!!!!");
+        //Debug.Log("looking for player!!!!!!!!!");
         while (enabled)
         {
             if (playerTransform == null)
             {
-                Debug.LogError("Player not found.");
+                //Debug.LogError("Player not found.");
                 // exit coroutine
                 yield break;
             }
@@ -158,14 +158,14 @@ public class EnemyControler : MonoBehaviour
                 // Check if the ray hit something
                 if (Physics.Raycast(ray, out hit))
                 {
-                    Debug.Log("hit somefing");
-                    Debug.Log(hit.transform.name);
+                    //Debug.Log("hit somefing");
+                    //Debug.Log(hit.transform.name);
                     // Check if the ray is looking at the player
                     if (hit.transform.CompareTag("Player"))
                     {
                         // Set target rotation to look at player
                         targetRotation = Quaternion.LookRotation(ray.direction);
-                        Debug.Log("Is looking");
+                        //Debug.Log("Is looking");
                         isLookingAtPlayer = true;
                         break;
                     }
@@ -186,7 +186,7 @@ public class EnemyControler : MonoBehaviour
     private IEnumerator FollowPlayer()
     {
         yield return new WaitForSeconds(0.1f);
-        Debug.Log("Following player.");
+        //Debug.Log("Following player.");
         
         while (enabled)
         {
@@ -219,7 +219,7 @@ public class EnemyControler : MonoBehaviour
     
     public void TakeDamage(RaycastHit hit, int damage)
     {
-        Debug.Log("Enemy hit by: " + hit.transform.name + " for " + damage + " damage.");
+        //Debug.Log("Enemy hit by: " + hit.transform.name + " for " + damage + " damage.");
         currentHp -= damage;
         if (currentHp <= 0)
         {
