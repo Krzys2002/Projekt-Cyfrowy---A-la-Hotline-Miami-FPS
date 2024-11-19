@@ -47,9 +47,12 @@ public class PlayerHpControler : MonoBehaviour
         currentHp = new_HP;
         
         currentHp = Mathf.Clamp(currentHp, 0, maxHp);
-        
-        EventManager.Player.OnPlayerHealthChange.Invoke((currentHp/(float)maxHp));
-        
+
+        if (EventManager.Player.OnPlayerHealthChange != null)
+        {
+            EventManager.Player.OnPlayerHealthChange.Invoke((currentHp / (float)maxHp));
+        }
+
         // Check if player is dead
         if (currentHp <= 0)
         {

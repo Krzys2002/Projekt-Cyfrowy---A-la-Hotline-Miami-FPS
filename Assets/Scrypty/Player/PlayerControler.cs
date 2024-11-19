@@ -28,6 +28,8 @@ public class PlayerControler : MonoBehaviour
     
     CharacterController cc;
     
+    bool canMove = true;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,9 @@ public class PlayerControler : MonoBehaviour
 
         EventManager.Player.OnPlayerEnterDialogue += OnEnterDialog;
         EventManager.Player.OnPlayerExitDialogue += OnExitDialog;
+        
+        EventManager.Player.OnPlayerEnterDialogue += DisableMovement;
+        EventManager.Player.OnPlayerExitDialogue += EnableMovement;
     }
 
     // Update is called once per frame
@@ -78,6 +83,11 @@ public class PlayerControler : MonoBehaviour
     // Player camera rotation
     private void PlayerRotation()
     {
+        if(!canMove)
+        {
+            return;
+        }
+        
         // Get mouse movement
         float mouseX = Input.GetAxis("Mouse X") * sensX * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensY * Time.deltaTime;
@@ -96,6 +106,10 @@ public class PlayerControler : MonoBehaviour
     // Player movement
     private void PlayerMovement()
     {
+        if(!canMove)
+        {
+            return;
+        }
         // Get player input
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -111,5 +125,17 @@ public class PlayerControler : MonoBehaviour
         
         // Move player
         cc.Move(velocity * Time.deltaTime);
+    }
+    
+    // Enable player movement
+    public void EnableMovement(NPCConversation c)
+    {
+        canMove = true;
+    }
+    
+    // Disable player movement
+    public void DisableMovement(NPCConversation c, Transform t)
+    {
+        canMove = false;
     }
 }

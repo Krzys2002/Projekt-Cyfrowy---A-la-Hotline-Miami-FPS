@@ -11,24 +11,23 @@ public class NpcDialog
     [SerializeField] 
     private NPCConversation dialog;
 
+    [SerializeField]
+    private bool repeatable = false;
     [SerializeField] 
-    private List<Requirement> requirements;
+    private RequirementsControler requirementsControler;
+    
 
-    private bool readyToInteract;
+    private bool RequirementsCompleted = false;
+    private bool wasCompletedBefore = false;
 
     public void Start()
     {
-        // Start all requirements
-        foreach (var requirement in requirements)
+        requirementsControler.onRequirementsCompleted.AddListener(RequirementsCompletedEvent);
+        requirementsControler.Start();
+        
+        if(StoreData.Player.PreviousConversations.Contains(dialog))
         {
-            // Start coroutine for each requirement
-            requirement.OnStart();
-            requirement.OnCompleted += CheckRequirements; 
-        }
-
-        if (requirements.Count < 1)
-        {
-            readyToInteract = true;
+            wasCompletedBefore = true;
         }
     }
 
@@ -37,28 +36,34 @@ public class NpcDialog
         ConversationManager.Instance.StartConversation(dialog);
         EventManager.Player.OnPlayerEnterDialogue.Invoke(dialog, npcTransform);
     }
+    
+    public void RequirementsCompletedEvent()
+    {
+        RequirementsCompleted = true;
+    }
 
     public bool isReady()
     {
-        return readyToInteract;
-    }
-    
-    public void CheckRequirements()
-    {
-        // Check if all requirements are completed
-        foreach (var requirement in requirements)
+        if(repeatable && RequirementsCompleted)
         {
-            if (!requirement.IsCompleted())
-            {
-                return;
-            }
+            return true;
         }
 
-        readyToInteract = true;
+        if (!wasCompletedBefore && RequirementsCompleted)
+        {
+            return true;
+        }
+        
+        return false;
     }
 
     public NPCConversation GetConversation()
     {
         return dialog;
+    }
+    
+    public void Complete()
+    {
+        wasCompletedBefore = true;
     }
 }

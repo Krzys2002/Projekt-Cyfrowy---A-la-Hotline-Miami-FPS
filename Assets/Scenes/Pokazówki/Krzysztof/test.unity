@@ -691,25 +691,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfd0f615bf394608aa4f93f553e47b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requirements:
-  - type: 2
-    countOrIndex: 0
-    target: {fileID: 1646069319}
-  onRequirementsCompleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 148643557}
-        m_TargetAssemblyTypeName: Interactable, Assembly-CSharp
-        m_MethodName: SetInteractable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+  RequirementsControler:
+    requirements:
+    - type: 2
+      countOrIndex: 4
+      target: {fileID: 0}
+    onRequirementsCompleted:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 148643557}
+          m_TargetAssemblyTypeName: Interactable, Assembly-CSharp
+          m_MethodName: SetInteractable
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!114 &148643557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1291,25 +1292,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfd0f615bf394608aa4f93f553e47b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requirements:
-  - type: 2
-    countOrIndex: 0
-    target: {fileID: 466482588}
-  onRequirementsCompleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 466482592}
-        m_TargetAssemblyTypeName: Scene, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  RequirementsControler:
+    requirements: []
+    onRequirementsCompleted:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &466482592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,21 +1310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: KPort
---- !u!114 &466482594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466482588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac18a3c9a45574bd8bb0d02c4a66cab6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 2078841687}
-  radiusAroundPlayer: 6
-  aiList: []
 --- !u!4 &468752807 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6287342678879663086, guid: 48f0482a8f0cd4d8982f366007d585a1, type: 3}
@@ -1750,7 +1722,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.23333333
+  m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: a4ad4753cfa874ae8862d3ede214ef7c, type: 2}
   m_BuildHeightMesh: 0
@@ -2558,25 +2530,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfd0f615bf394608aa4f93f553e47b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requirements:
-  - type: 2
-    countOrIndex: 0
-    target: {fileID: 1985508644}
-  onRequirementsCompleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1235516078}
-        m_TargetAssemblyTypeName: Interactable, Assembly-CSharp
-        m_MethodName: SetInteractable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+  RequirementsControler:
+    requirements:
+    - type: 2
+      countOrIndex: 0
+      target: {fileID: 1985508644}
+    onRequirementsCompleted:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1235516078}
+          m_TargetAssemblyTypeName: Interactable, Assembly-CSharp
+          m_MethodName: SetInteractable
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!114 &1235516078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2948,7 +2921,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2112393825006752822, guid: e5e81bbc3fdb54501bec5c1021fa0382, type: 3}
   m_PrefabInstance: {fileID: 890713006}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646069319}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a07efb63137b4a1d9f361ec9bd30124, type: 3}
@@ -3016,11 +2989,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48f0482a8f0cd4d8982f366007d585a1, type: 3}
---- !u!1 &1646069319 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2833614287648371773, guid: e5e81bbc3fdb54501bec5c1021fa0382, type: 3}
-  m_PrefabInstance: {fileID: 890713006}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1671376598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3470,11 +3438,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 118323264764761537, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
   m_PrefabInstance: {fileID: 2479773703871629581}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2078841687 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 656256577705495086, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
-  m_PrefabInstance: {fileID: 2479773703871629581}
-  m_PrefabAsset: {fileID: 0}
 --- !u!208 &2078841688
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -3803,6 +3766,14 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5221723266410974655, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
+      propertyPath: sensX
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221723266410974655, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
+      propertyPath: sensY
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221723266410974655, guid: 8851ee1fa7fb648ccad3db73e7a1a85f, type: 3}
       propertyPath: cameraOrientation
       value: 
       objectReference: {fileID: 1856861675}
@@ -3914,9 +3885,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2715371970142643240, guid: 5bd881727d5704df8ba44eff75434a17, type: 3}
       insertIndex: -1
       addedObject: {fileID: 466482591}
-    - targetCorrespondingSourceObject: {fileID: 2715371970142643240, guid: 5bd881727d5704df8ba44eff75434a17, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 466482594}
     - targetCorrespondingSourceObject: {fileID: 2715371970142643240, guid: 5bd881727d5704df8ba44eff75434a17, type: 3}
       insertIndex: -1
       addedObject: {fileID: 466482592}

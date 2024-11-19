@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DialogueEditor;
 
 [System.Serializable]
 public class Requirement
@@ -11,7 +12,8 @@ public class Requirement
     {
         Interaction,
         LevelPass,
-        EnemyDeathCount
+        EnemyDeathCount,
+        DialogueWasInteracted
     }
 
     // Define the requirement type, count or index, and target
@@ -38,11 +40,8 @@ public class Requirement
         OnStart();
     }
     
-    public IEnumerator OnStart()
+    public void OnStart()
     {
-        // Wait for the end of the frame
-        yield return new WaitForEndOfFrame();
-        
         // Check the requirement type
         switch (type)
         {
@@ -85,12 +84,34 @@ public class Requirement
                     EventManager.Enemies.OnAnyEnemyDeath += Check;
                 }
                 break;
+            case RequirementType.DialogueWasInteracted:
+                if(StoreData.Player.PreviousConversations.Contains(target.GetComponent<NPCConversation>()))
+                {
+                    isCompleted = true;
+                    OnCompleted.Invoke();
+                }
+                else
+                {
+                    EventManager.Player.OnPlayerEnterDialogue += Check;
+                }
+                break;
+                
         }
     }
 
     public bool IsCompleted()
     {
         return isCompleted;
+    }
+    
+    // Define a method to check the requirement for dialogue interaction
+    private void Check(NPCConversation conversation, Transform transform)
+    {
+        if (conversation == target.GetComponent<NPCConversation>())
+        {
+            isCompleted = true;
+            OnCompleted.Invoke();
+        }
     }
 
     
