@@ -13,8 +13,8 @@ public class EventManager
 
     public class PlayerEvents
     {
-        public UnityAction OnPlayerEnterDialogue;
-        public UnityAction OnPlayerExitDialogue;
+        public UnityAction<NPCConversation, Transform> OnPlayerEnterDialogue;
+        public UnityAction<NPCConversation> OnPlayerExitDialogue;
         public UnityAction<float> OnPlayerHealthChange;
     }
     

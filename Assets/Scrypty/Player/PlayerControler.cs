@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using DialogueEditor;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerControler : MonoBehaviour
 {
     [Header("Camera")]
@@ -35,6 +37,9 @@ public class PlayerControler : MonoBehaviour
 
         // Get character controller
         cc = GetComponent<CharacterController>();
+
+        EventManager.Player.OnPlayerEnterDialogue += OnEnterDialog;
+        EventManager.Player.OnPlayerExitDialogue += OnExitDialog;
     }
 
     // Update is called once per frame
@@ -50,6 +55,18 @@ public class PlayerControler : MonoBehaviour
         }
         
         PlayerRotation();
+    }
+
+    private void OnEnterDialog(NPCConversation c, Transform t)
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void OnExitDialog(NPCConversation c)
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     
     // FixedUpdate is called once per physics frame
