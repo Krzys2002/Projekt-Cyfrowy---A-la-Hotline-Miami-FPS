@@ -103,9 +103,8 @@ public class EnemyControler : MonoBehaviour
         // Rotate enemy
         transform.rotation =
             Quaternion.RotateTowards(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
-        
-        // Check if enemy is looking at player
-        if (isLookingAtPlayer)
+
+        if (isLookingAtPlayer && weaponControler)
         {
             // create random deviation from the direction
             Vector3 direction = transform.forward +
