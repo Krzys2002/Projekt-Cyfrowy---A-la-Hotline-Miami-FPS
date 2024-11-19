@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using DialogueEditor;
 using UnityEngine;
 
 public class PlayerInteractionControler : MonoBehaviour
 {
+    private bool canInteract = true;
     // Camera reference
     private new Transform camera;
     // Current interactable object
@@ -17,11 +19,18 @@ public class PlayerInteractionControler : MonoBehaviour
         
         // Start checking for interaction
         StartCoroutine(CheckInteraction());
+        
+        EventManager.Player.OnPlayerEnterDialogue += DisableInteraction;
+        EventManager.Player.OnPlayerExitDialogue += EnableInteraction;
     }
     
     // Update is called once per frame  
     void Update()
     {
+        if(!canInteract)
+        {
+            return;
+        }
         // Check if player pressed E
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -57,4 +66,17 @@ public class PlayerInteractionControler : MonoBehaviour
         }
         
     }
+    
+    // Disable interaction
+    public void DisableInteraction(NPCConversation c, Transform t)
+    {
+        canInteract = false;
+    }
+    
+    // Enable interaction
+    public void EnableInteraction(NPCConversation c)
+    {
+        canInteract = true;
+    }
+    
 }

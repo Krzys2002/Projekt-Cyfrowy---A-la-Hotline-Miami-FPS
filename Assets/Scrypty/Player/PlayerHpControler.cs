@@ -41,19 +41,18 @@ public class PlayerHpControler : MonoBehaviour
             RegenerateHealth();
         }
     }
-    
-    // Function to take damage
-    public void TakeDamage(RaycastHit hit, int damage)
+
+    void changeHP(int new_HP)
     {
-        //Debug.LogWarning("Player hit by: " + hit.transform.name + " for " + damage + " damage.");
+        currentHp = new_HP;
         
-        // Reduce player hp
-        currentHp -= damage;
-        // Clamp hp to max hp
         currentHp = Mathf.Clamp(currentHp, 0, maxHp);
-        // Reset time from last hit
-        timeFromLastHit = 0f;
-        
+
+        if (EventManager.Player.OnPlayerHealthChange != null)
+        {
+            EventManager.Player.OnPlayerHealthChange.Invoke((currentHp / (float)maxHp));
+        }
+
         // Check if player is dead
         if (currentHp <= 0)
         {
@@ -61,9 +60,23 @@ public class PlayerHpControler : MonoBehaviour
         }
     }
     
+    // Function to take damage
+    public void TakeDamage(RaycastHit hit, int damage)
+    {
+        int new_HP = currentHp;
+        
+        // Reduce player hp
+        new_HP -= damage;
+        // Reset time from last hit
+        timeFromLastHit = 0f;
+        
+        changeHP(new_HP);
+    }
+    
     // Function to regenerate hp
     private void RegenerateHealth()
     {
+        int new_HP = currentHp;
         // add hp per deltatime to acumulated hp
         acumulatedHp += regenHpPerSecond * Time.deltaTime;
         
@@ -71,19 +84,19 @@ public class PlayerHpControler : MonoBehaviour
         if(acumulatedHp >= 1)
         {
             // add 1 to current hp
-            currentHp += (int)acumulatedHp;
+            new_HP += (int)acumulatedHp;
             // remove 1 from acumulated hp
             acumulatedHp -= (int)acumulatedHp;
         }
-        // Clamp hp to max hp
-        currentHp = Mathf.Clamp(currentHp, 0, maxHp);
         
         // Check if player has full hp
-        if(currentHp == maxHp)
+        if (new_HP >= maxHp)
         {
             // Reset acumulated hp
             acumulatedHp = 0;
         }
+        
+        changeHP(new_HP);
     }
     
     // Function to handle player death

@@ -19,6 +19,8 @@ public class EnemyControler : MonoBehaviour
     static float rotationSpeed = 150f;
     
     // Enemy vision
+    [SerializeField]
+    public int numberOfRays = 10;
     // Player transform
     private Transform playerTransform;
     // Enemy rays
@@ -101,9 +103,8 @@ public class EnemyControler : MonoBehaviour
         // Rotate enemy
         transform.rotation =
             Quaternion.RotateTowards(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
-        
-        // Check if enemy is looking at player
-        if (isLookingAtPlayer)
+
+        if (isLookingAtPlayer && weaponControler)
         {
             // create random deviation from the direction
             Vector3 direction = transform.forward +
@@ -115,7 +116,6 @@ public class EnemyControler : MonoBehaviour
             // triger enemies in sublevel
             if (!canMove)
             {
-                //Debug.Log("Triger");
                 inSubLevel.enableMove();
             }
         }
@@ -131,7 +131,8 @@ public class EnemyControler : MonoBehaviour
     // Coroutine to look at player
     private IEnumerator LookAtPlayerCoroutine()
     {
-        //Debug.Log("looking for player!!!!!!!!!");
+        rays = new Ray[numberOfRays];
+        
         while (enabled)
         {
             if (playerTransform == null)
@@ -143,40 +144,64 @@ public class EnemyControler : MonoBehaviour
             
             // Set target rotation to look at player
             targetRotation = Quaternion.LookRotation(playerTransform.position - transform.position);
+            
+            // calculate distance to player
+            float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
+            
+            // calculate rays angle spread
+            float angleSpread = Math.Clamp(10f/distanceToPlayer, 0.05f, 4f);
                 
             // Perform a raycast to check if the enemy is looking directly at the player
             Vector3 directionToPlayer = playerTransform.position - transform.position;
             rays[0] = new Ray(transform.position, directionToPlayer);
-            rays[1] = new Ray(transform.position, Quaternion.Euler(0, 0.4f, 0) * directionToPlayer);
-            rays[2] = new Ray(transform.position, Quaternion.Euler(0, -0.4f, 0) * directionToPlayer);
-            rays[3] = new Ray(transform.position, Quaternion.Euler(0, 0.8f, 0) * directionToPlayer);
-            rays[4] = new Ray(transform.position, Quaternion.Euler(-0, -0.8f, 0) * directionToPlayer);
-
+            
+            float angle = 0f;
+            for (int i = 1; i < numberOfRays; i++)
+            {
+                if (i % 2 == 1)
+                {
+                    angle = Math.Abs(angle) + angleSpread;
+                }
+                else
+                {
+                    angle *= -1;
+                }
+                
+                rays[i] = new Ray(transform.position, Quaternion.Euler(0, angle, 0) * directionToPlayer);
+            }
+            
+            bool playerFound = false;
+            bool enemyFound = false;
+            
             foreach (Ray ray in rays)
             {
                 RaycastHit hit;
                 // Check if the ray hit something
-                if (Physics.Raycast(ray, out hit))
+                if (!Physics.Raycast(ray, out hit))
                 {
-                    //Debug.Log("hit somefing");
-                    //Debug.Log(hit.transform.name);
-                    // Check if the ray is looking at the player
-                    if (hit.transform.CompareTag("Player"))
-                    {
-                        // Set target rotation to look at player
-                        targetRotation = Quaternion.LookRotation(ray.direction);
-                        //Debug.Log("Is looking");
-                        isLookingAtPlayer = true;
-                        break;
-                    }
-                        
-                    // Check if the last ray is not looking at the player
-                    if(ray.direction == rays[rays.Length - 1].direction)
-                    {
-                        isLookingAtPlayer = false;
-                    }
-                } 
-                    
+                    continue;
+                }
+
+                if (hit.transform.CompareTag("Player"))
+                { 
+                    // Set target rotation to look at player
+                    targetRotation = Quaternion.LookRotation(ray.direction);
+                    playerFound = true;
+                }
+
+                if (hit.transform.CompareTag("Enemy"))
+                {
+                    enemyFound = true;
+                }
+            }
+            
+            if(playerFound && !enemyFound)
+            {
+                isLookingAtPlayer = true;
+            }
+            else
+            {
+                isLookingAtPlayer = false;
             }
             
             yield return new WaitForSeconds(0.1f); // 10 times per second
@@ -192,10 +217,12 @@ public class EnemyControler : MonoBehaviour
         {
             if (!isLookingAtPlayer && canMove)
             {
+                agent.avoidancePriority = 50;
                 agent.SetDestination(playerTransform.position);
             }
             else
             {
+                agent.avoidancePriority = 1;
                 agent.SetDestination(transform.position);
             }
             
@@ -219,7 +246,7 @@ public class EnemyControler : MonoBehaviour
     
     public void TakeDamage(RaycastHit hit, int damage)
     {
-        //Debug.Log("Enemy hit by: " + hit.transform.name + " for " + damage + " damage.");
+        Debug.Log("Enemy hit by: " + hit.transform.name + " for " + damage + " damage.");
         currentHp -= damage;
         if (currentHp <= 0)
         {

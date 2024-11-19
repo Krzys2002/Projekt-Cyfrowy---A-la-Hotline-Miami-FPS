@@ -11,6 +11,7 @@ public class SubLevel : MonoBehaviour
     List<GameObject> enemies;
     List<Gate> gates;
     
+    [SerializeField]
     GameObject enemiesObject;
 
     private string[] levelRegisterArray;
@@ -23,29 +24,11 @@ public class SubLevel : MonoBehaviour
         gates = new List<Gate>();
         levelRegisterArray = new string[1];
         levelRegisterArray[0] = gameObject.name;
-        Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+        EnemyControler[] childrenEnemy = gameObject.GetComponentsInChildren<EnemyControler>();
 
-        foreach (Transform child in children)
+        foreach (EnemyControler child in childrenEnemy)
         {
-            //Debug.Log("Child name: " + child.name);
-            if (child.name == "Enemies")
-            {
-                Transform[] enemiesTransforms = child.GetComponentsInChildren<Transform>();
-                
-                //Debug.Log("Enemies count: " + enemiesTransforms.Length);
-                
-                enemiesObject = child.gameObject;
-
-                foreach (Transform enemyTransform in enemiesTransforms)
-                {
-                    if (enemyTransform.gameObject.tag == "Enemy")
-                    {
-                        enemies.Add(enemyTransform.gameObject);
-                    }
-                }
-                
-                break;
-            }
+            enemies.Add(child.gameObject);
         }
         
         foreach(SubLevel subLevel in subLevels)
@@ -138,7 +121,11 @@ public class SubLevel : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
-            enemy.GetComponent<EnemyControler>().LevelRegister(levelRegisterArray, this);
+            EnemyControler controler = enemy.GetComponent<EnemyControler>();
+            if(controler != null)
+            {
+                controler.LevelRegister(levelRegisterArray, this);
+            }
         }
 
         if (!areEnemiesActive)
@@ -149,9 +136,11 @@ public class SubLevel : MonoBehaviour
 
     public void enableMove()
     {
+        
         foreach (GameObject enemy in enemies)
         {
-            enemy.GetComponent<EnemyControler>().SetCanMove(true);
+            EnemyControler controler = enemy.GetComponent<EnemyControler>();
+            controler.SetCanMove(true);
         }
     }
 }
