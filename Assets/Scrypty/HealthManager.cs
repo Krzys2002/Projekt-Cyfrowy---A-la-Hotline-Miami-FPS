@@ -13,7 +13,7 @@ public class HealthManager : MonoBehaviour
         EventManager.Player.OnPlayerHealthChange += healthChange;
     }
     
-    public void healthChange(int currentPresent)
+    public void healthChange(float currentPresent)
     {
         HealthBar.fillAmount = currentPresent;
     }

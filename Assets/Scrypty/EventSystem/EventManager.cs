@@ -15,7 +15,7 @@ public class EventManager
     {
         public UnityAction OnPlayerEnterDialogue;
         public UnityAction OnPlayerExitDialogue;
-        public UnityAction<int> OnPlayerHealthChange;
+        public UnityAction<float> OnPlayerHealthChange;
     }
     
     public class ObjectEvents
