@@ -85,7 +85,7 @@ public class EnemyControler : MonoBehaviour
         transform.rotation =
             Quaternion.RotateTowards(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
 
-        if (isLookingAtPlayer)
+        if (isLookingAtPlayer && weaponControler)
         {
             //Debug.Log("Enemy is looking directly at the player.");
             Vector3 direction = transform.forward +
