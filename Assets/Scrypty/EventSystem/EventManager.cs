@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DialogueEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,11 +15,12 @@ public class EventManager
     {
         public UnityAction OnPlayerEnterDialogue;
         public UnityAction OnPlayerExitDialogue;
+        public UnityAction<NPCConversation> OnPlayerInteractWithNPC;
+        public UnityAction<NPCConversation> OnPlayerEndDialogue;
     }
     
     public class ObjectEvents
     {
-        
         public UnityAction<GameObject, int> OnObjectInteract;
     }
     

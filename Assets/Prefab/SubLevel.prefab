@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subLevels: []
+  enemiesObject: {fileID: 3596396844956871352}
 --- !u!1 &3596396844956871352
 GameObject:
   m_ObjectHideFlags: 0

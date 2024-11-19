@@ -50,6 +50,7 @@ MonoBehaviour:
   weaponControler: {fileID: 7306033503121029881}
   maxHp: 25
   accuracy: 0.9
+  numberOfRays: 10
 --- !u!195 &1851969171161943362
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -87,7 +88,7 @@ GameObject:
   - component: {fileID: 2399795907849697905}
   m_Layer: 9
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
