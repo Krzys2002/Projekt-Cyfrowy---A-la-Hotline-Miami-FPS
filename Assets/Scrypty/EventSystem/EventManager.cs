@@ -26,6 +26,7 @@ public class EventManager
     public class LevelEvents
     {
         public class OnFinishLevel : UnityEvent<GameObject> { }
+        public UnityAction<SubLevel> OnSubLevelTrigger;
         
         // map of on finish level events
         private Dictionary<string, OnFinishLevel> mapOnFinishLevel = new Dictionary<string, OnFinishLevel>();
@@ -41,6 +42,7 @@ public class EventManager
     public class EnemyEvents
     {
         public UnityAction<Component> OnAnyEnemyDeath;
+        public UnityAction<Component> OnEnemyTriggerByPlayer;
         
         // define a UnityEvent that takes a Component as a parameter
         public class OnEnemyDeath : UnityEvent<Component> { }

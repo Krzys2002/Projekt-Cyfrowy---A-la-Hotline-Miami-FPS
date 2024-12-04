@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[DefaultExecutionOrder(1)]
 public class SubLevel : MonoBehaviour
 {
     public List<SubLevel> subLevels;
@@ -18,7 +19,11 @@ public class SubLevel : MonoBehaviour
 
     private bool playerWasInside = false;
 
-    private void Awake()
+    private bool triger = false;
+
+
+    // Start is called before the first frame update
+    void Start()
     {
         enemies = new List<GameObject>();
         gates = new List<Gate>();
@@ -39,18 +44,24 @@ public class SubLevel : MonoBehaviour
         //Debug.Log("SubLevel " + gameObject.name + " has " + enemies.Count + " enemies.");
     }
     
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    
     
     public List<GameObject> getEnemies()
     {
         return enemies;
+    }
+    
+    public void setTriger(bool triger)
+    {
+        this.triger = triger;
+        if (triger)
+        {
+            EventManager.Levels.OnSubLevelTrigger.Invoke(this);
+        }
+    }
+    
+    public bool getTriger()
+    {
+        return triger;
     }
     
     public void playerEnter(Gate enteredGate)
@@ -58,16 +69,19 @@ public class SubLevel : MonoBehaviour
         //Debug.Log("Player enter " + gameObject.name);
         //Debug.Log("Number of gates: " + gates.Count);
         playerWasInside = true;
+        triger = true;
+        Debug.Log("Player entered " + gameObject.name);
+        Debug.Log("Number of gates: " + gates.Count);
         foreach (Gate gate in gates)
         {
+            Debug.Log("Gate: " + gate.gameObject.name);
             if(gate != enteredGate)
             {
+                Debug.Log("Activate clouse sublevels at gate " + gate.gameObject.name);
                 //Debug.Log("Activate clouse sublevels at gate " + gate.gameObject.name);
                 gate.activateCloseSublevels(this);
             }
         }
-
-        enableMove();
     }
 
     
@@ -133,14 +147,5 @@ public class SubLevel : MonoBehaviour
             DeactivateEnemies();
         }
     }
-
-    public void enableMove()
-    {
-        
-        foreach (GameObject enemy in enemies)
-        {
-            EnemyControler controler = enemy.GetComponent<EnemyControler>();
-            controler.SetCanMove(true);
-        }
-    }
+    
 }

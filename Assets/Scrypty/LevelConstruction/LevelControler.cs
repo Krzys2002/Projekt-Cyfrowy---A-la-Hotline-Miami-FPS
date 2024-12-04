@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(3)]
 public class LevelControler : MonoBehaviour
 {
     // Requirements manager reference
@@ -38,15 +39,7 @@ public class LevelControler : MonoBehaviour
             subLevel.LevelsRegisters(levelReg);
             subLevel.DeactivateEnemies();
         }
-
-        // Start game
-        StartCoroutine(StartGame());
-    }
-    
-    IEnumerator StartGame()
-    {
-        // Wait for the end of the frame to ensure Start has completed
-        yield return new WaitForEndOfFrame();
+        
         
         // Activate start sublevel
         startSubLevel.ActivateEnemies();

@@ -492,7 +492,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3560210670660641252, guid: 48f0482a8f0cd4d8982f366007d585a1, type: 3}
       propertyPath: m_Name
-      value: Enemy (1)
+      value: Enemy two
       objectReference: {fileID: 0}
     - target: {fileID: 6287342678879663086, guid: 48f0482a8f0cd4d8982f366007d585a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1310,6 +1310,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: KPort
+--- !u!114 &466482594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466482588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1eb0ce7546140e0b499767348dd363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNumberOfActiveEnemies: 10
 --- !u!4 &468752807 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6287342678879663086, guid: 48f0482a8f0cd4d8982f366007d585a1, type: 3}
@@ -2828,7 +2841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3560210670660641252, guid: 48f0482a8f0cd4d8982f366007d585a1, type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Enemy one
       objectReference: {fileID: 0}
     - target: {fileID: 6287342678879663086, guid: 48f0482a8f0cd4d8982f366007d585a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3848,6 +3861,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2715371970142643240, guid: 5bd881727d5704df8ba44eff75434a17, type: 3}
       insertIndex: -1
       addedObject: {fileID: 466482592}
+    - targetCorrespondingSourceObject: {fileID: 2715371970142643240, guid: 5bd881727d5704df8ba44eff75434a17, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 466482594}
   m_SourcePrefab: {fileID: 100100000, guid: 5bd881727d5704df8ba44eff75434a17, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
