@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using DialogueEditor;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerControler : MonoBehaviour
 {
     [Header("Camera")]
@@ -26,15 +28,42 @@ public class PlayerControler : MonoBehaviour
     
     CharacterController cc;
     
+    PlayerInput playerInput;
+    PlayerInput.OnFootActions footActions;
+    
+    bool canMove = true;
+    
+    void Awake()
+    {
+        playerInput = new PlayerInput();
+        footActions = playerInput.onFoot;
+    }
+    
+    void OnEnable()
+    {
+        footActions.Enable();
+    }
+    
+    void OnDisable()
+    {
+        footActions.Disable();
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
         // Lock cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
+        // Get character controller
         cc = GetComponent<CharacterController>();
-        //rb.freezeRotation = true;
+
+        EventManager.Player.OnPlayerEnterDialogue += OnEnterDialog;
+        EventManager.Player.OnPlayerExitDialogue += OnExitDialog;
+        
+        EventManager.Player.OnPlayerEnterDialogue += DisableMovement;
+        EventManager.Player.OnPlayerExitDialogue += EnableMovement;
     }
 
     // Update is called once per frame
@@ -51,16 +80,33 @@ public class PlayerControler : MonoBehaviour
         
         PlayerRotation();
     }
+
+    private void OnEnterDialog(NPCConversation c, Transform t)
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void OnExitDialog(NPCConversation c)
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
-        PlayerMovement();
+        PlayerMovement(footActions.Movment.ReadValue<Vector2>());
     }
 
     // Player camera rotation
     private void PlayerRotation()
     {
+        if(!canMove)
+        {
+            return;
+        }
+        
         // Get mouse movement
         float mouseX = Input.GetAxis("Mouse X") * sensX * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensY * Time.deltaTime;
@@ -77,11 +123,15 @@ public class PlayerControler : MonoBehaviour
     }
     
     // Player movement
-    private void PlayerMovement()
+    private void PlayerMovement(Vector2 input)
     {
+        if(!canMove)
+        {
+            return;
+        }
         // Get player input
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = input.x;
+        float verticalInput = input.y;
         
         // Calculate movement direction
         Vector3 moveDirection = (horizontalInput * cameraOrientation.right + verticalInput * transform.forward).normalized;
@@ -94,5 +144,17 @@ public class PlayerControler : MonoBehaviour
         
         // Move player
         cc.Move(velocity * Time.deltaTime);
+    }
+    
+    // Enable player movement
+    public void EnableMovement(NPCConversation c)
+    {
+        canMove = true;
+    }
+    
+    // Disable player movement
+    public void DisableMovement(NPCConversation c, Transform t)
+    {
+        canMove = false;
     }
 }

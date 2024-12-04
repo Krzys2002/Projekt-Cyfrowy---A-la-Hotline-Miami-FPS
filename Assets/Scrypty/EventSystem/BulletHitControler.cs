@@ -13,6 +13,7 @@ public class BulletHitControler : MonoBehaviour
 
     public void Hit(RaycastHit hit, int damage)
     {
+        //Debug.Log("Hit: " + hit.transform.name + " for " + damage + " damage");
         hitEvent.Invoke(hit, damage);
     }
 }

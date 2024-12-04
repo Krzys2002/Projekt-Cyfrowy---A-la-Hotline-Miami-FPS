@@ -1,36 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 
+[DefaultExecutionOrder(3)]
 public class RequirementsManager : MonoBehaviour
 {
-    [SerializeField] 
-    private List<Requirement> requirements;
-    [SerializeField]
-    private UnityEvent onRequirementsCompleted;
-    
+    public RequirementsControler RequirementsControler;
     
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var requirement in requirements)
-        {
-            StartCoroutine(requirement.OnStart());
-            requirement.OnCompleted += CheckRequirements; 
-        }
-    }
-    
-    public void CheckRequirements()
-    {
-        foreach (var requirement in requirements)
-        {
-            if (!requirement.IsCompleted())
-            {
-                return;
-            }
-        }
-        onRequirementsCompleted.Invoke();
+        RequirementsControler.Start();
     }
 }

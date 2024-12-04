@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DialogueEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,8 +13,9 @@ public class EventManager
 
     public class PlayerEvents
     {
-        public UnityAction OnPlayerEnterDialogue;
-        public UnityAction OnPlayerExitDialogue;
+        public UnityAction<NPCConversation, Transform> OnPlayerEnterDialogue;
+        public UnityAction<NPCConversation> OnPlayerExitDialogue;
+        public UnityAction<float> OnPlayerHealthChange;
     }
     
     public class ObjectEvents
@@ -24,9 +26,12 @@ public class EventManager
     public class LevelEvents
     {
         public class OnFinishLevel : UnityEvent<GameObject> { }
+        public UnityAction<SubLevel> OnSubLevelTrigger;
         
+        // map of on finish level events
         private Dictionary<string, OnFinishLevel> mapOnFinishLevel = new Dictionary<string, OnFinishLevel>();
         
+        // filter on finish level event
         public OnFinishLevel OnFinishLevelFilter(string levelName = "")
         {
             mapOnFinishLevel.TryAdd(levelName, new OnFinishLevel());
@@ -37,11 +42,15 @@ public class EventManager
     public class EnemyEvents
     {
         public UnityAction<Component> OnAnyEnemyDeath;
+        public UnityAction<Component> OnEnemyTriggerByPlayer;
         
+        // define a UnityEvent that takes a Component as a parameter
         public class OnEnemyDeath : UnityEvent<Component> { }
 
+        // map of on enemy death events
         private Dictionary<string, OnEnemyDeath> mapOnEnemyDeath = new Dictionary<string, OnEnemyDeath>();
         
+        // filter on enemy death event
         public OnEnemyDeath OnEnemyDeathFilter(string subLevel)
         {
             mapOnEnemyDeath.TryAdd(subLevel, new OnEnemyDeath());
