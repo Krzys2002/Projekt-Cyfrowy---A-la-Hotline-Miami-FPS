@@ -28,7 +28,26 @@ public class PlayerControler : MonoBehaviour
     
     CharacterController cc;
     
+    PlayerInput playerInput;
+    PlayerInput.OnFootActions footActions;
+    
     bool canMove = true;
+    
+    void Awake()
+    {
+        playerInput = new PlayerInput();
+        footActions = playerInput.onFoot;
+    }
+    
+    void OnEnable()
+    {
+        footActions.Enable();
+    }
+    
+    void OnDisable()
+    {
+        footActions.Disable();
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -77,7 +96,7 @@ public class PlayerControler : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
-        PlayerMovement();
+        PlayerMovement(footActions.Movment.ReadValue<Vector2>());
     }
 
     // Player camera rotation
@@ -104,15 +123,15 @@ public class PlayerControler : MonoBehaviour
     }
     
     // Player movement
-    private void PlayerMovement()
+    private void PlayerMovement(Vector2 input)
     {
         if(!canMove)
         {
             return;
         }
         // Get player input
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = input.x;
+        float verticalInput = input.y;
         
         // Calculate movement direction
         Vector3 moveDirection = (horizontalInput * cameraOrientation.right + verticalInput * transform.forward).normalized;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1521638095053663874}
   - component: {fileID: 5088972803671397330}
+  - component: {fileID: 7103777333887450145}
   m_Layer: 0
   m_Name: Level
   m_TagString: Level
@@ -47,3 +48,16 @@ MonoBehaviour:
   requirementsManager: {fileID: 0}
   startSubLevel: {fileID: 0}
   subLevels: []
+--- !u!114 &7103777333887450145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715371970142643240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1eb0ce7546140e0b499767348dd363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNumberOfActiveEnemies: 10
