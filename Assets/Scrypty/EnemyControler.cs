@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+[DefaultExecutionOrder(0)]
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyControler : MonoBehaviour
 {
@@ -114,9 +115,9 @@ public class EnemyControler : MonoBehaviour
             weaponControler.Shoot(transform.position, direction);
             
             // triger enemies in sublevel
-            if (!canMove)
+            if (!inSubLevel.getTriger())
             {
-                inSubLevel.enableMove();
+                inSubLevel.setTriger(true);
             }
         }
     }
@@ -131,6 +132,7 @@ public class EnemyControler : MonoBehaviour
     // Coroutine to look at player
     private IEnumerator LookAtPlayerCoroutine()
     {
+        yield return new WaitForEndOfFrame();
         rays = new Ray[numberOfRays];
         
         while (enabled)
@@ -187,6 +189,11 @@ public class EnemyControler : MonoBehaviour
                     // Set target rotation to look at player
                     targetRotation = Quaternion.LookRotation(ray.direction);
                     playerFound = true;
+                    canMove = true;
+                    if(EventManager.Enemies.OnEnemyTriggerByPlayer != null && !inSubLevel.getTriger())
+                    {
+                        EventManager.Enemies.OnEnemyTriggerByPlayer.Invoke(this);
+                    }
                 }
 
                 if (hit.transform.CompareTag("Enemy"))
@@ -246,7 +253,7 @@ public class EnemyControler : MonoBehaviour
     
     public void TakeDamage(RaycastHit hit, int damage)
     {
-        Debug.Log("Enemy hit by: " + hit.transform.name + " for " + damage + " damage.");
+        //Debug.Log("Enemy hit by: " + hit.transform.name + " for " + damage + " damage.");
         currentHp -= damage;
         if (currentHp <= 0)
         {
@@ -257,7 +264,7 @@ public class EnemyControler : MonoBehaviour
     private void Die()
     {
         // Handle enemy death (e.g., play animation, drop loot)
-        Debug.Log("Enemy has died."); 
+        //Debug.Log("Enemy has died."); 
         if (EventManager.Enemies.OnAnyEnemyDeath != null)
         {
             EventManager.Enemies.OnAnyEnemyDeath.Invoke(this);
@@ -274,6 +281,16 @@ public class EnemyControler : MonoBehaviour
     public void SetCanMove(bool canMove)
     {
         this.canMove = canMove;
+    }
+    
+    public bool CanMove()
+    {
+        return canMove;
+    }
+
+    public SubLevel InSubLevel()
+    {
+        return inSubLevel;
     }
     
 }
