@@ -31,6 +31,8 @@ public class LevelEnemyControler : MonoBehaviour
         }
         playerTransform = GameObject.FindWithTag("Player").transform;
         EventManager.Levels.OnSubLevelTrigger += onSublevelTrigger;
+        EventManager.Enemies.OnEnemyTriggerByPlayer += OnEnemyTrigger;
+        EventManager.Enemies.OnAnyEnemyDeath += onEnemyDeath;
         activateEnemies();
     }
 
@@ -100,6 +102,8 @@ public class LevelEnemyControler : MonoBehaviour
 
         enemyDistances.Sort((a, b) => a.distance.CompareTo(b.distance));
 
+        Debug.Log("Activating enemies");
+        Debug.Log("Current number of active enemies: " + currentNumberOfActiveEnemies);
         foreach (var (enemy, distance) in enemyDistances)
         {
             if (currentNumberOfActiveEnemies >= maxNumberOfActiveEnemies)
@@ -124,7 +128,6 @@ public class LevelEnemyControler : MonoBehaviour
             Debug.Log("Activating enemy: " + enemy.name);
             enemyControler.SetCanMove(true);
             currentNumberOfActiveEnemies++;
-            
         }
     }
 }

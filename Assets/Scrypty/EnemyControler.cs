@@ -190,7 +190,7 @@ public class EnemyControler : MonoBehaviour
                     targetRotation = Quaternion.LookRotation(ray.direction);
                     playerFound = true;
                     canMove = true;
-                    if(EventManager.Enemies.OnEnemyTriggerByPlayer != null)
+                    if(EventManager.Enemies.OnEnemyTriggerByPlayer != null && !inSubLevel.getTriger())
                     {
                         EventManager.Enemies.OnEnemyTriggerByPlayer.Invoke(this);
                     }
