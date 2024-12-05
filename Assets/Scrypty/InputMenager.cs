@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
+[DefaultExecutionOrder(-100)]
 public class InputMenager : MonoBehaviour
 {
     public static InputMenager inputMenager;
