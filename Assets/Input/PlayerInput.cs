@@ -35,6 +35,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""22a0b789-72d4-48d6-9415-a9922ed62da7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -103,6 +112,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Movment"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f207b07c-b5cd-4916-8b0a-2916da448568"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""036725be-7073-4dbf-9306-61b38e752587"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7162f79-9211-4943-bc6e-b8df981da9cf"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -112,6 +154,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // onFoot
         m_onFoot = asset.FindActionMap("onFoot", throwIfNotFound: true);
         m_onFoot_Movment = m_onFoot.FindAction("Movment", throwIfNotFound: true);
+        m_onFoot_PauseMenu = m_onFoot.FindAction("Pause Menu", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -179,11 +222,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_onFoot;
     private List<IOnFootActions> m_OnFootActionsCallbackInterfaces = new List<IOnFootActions>();
     private readonly InputAction m_onFoot_Movment;
+    private readonly InputAction m_onFoot_PauseMenu;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
         public OnFootActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movment => m_Wrapper.m_onFoot_Movment;
+        public InputAction @PauseMenu => m_Wrapper.m_onFoot_PauseMenu;
         public InputActionMap Get() { return m_Wrapper.m_onFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -196,6 +241,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Movment.started += instance.OnMovment;
             @Movment.performed += instance.OnMovment;
             @Movment.canceled += instance.OnMovment;
+            @PauseMenu.started += instance.OnPauseMenu;
+            @PauseMenu.performed += instance.OnPauseMenu;
+            @PauseMenu.canceled += instance.OnPauseMenu;
         }
 
         private void UnregisterCallbacks(IOnFootActions instance)
@@ -203,6 +251,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Movment.started -= instance.OnMovment;
             @Movment.performed -= instance.OnMovment;
             @Movment.canceled -= instance.OnMovment;
+            @PauseMenu.started -= instance.OnPauseMenu;
+            @PauseMenu.performed -= instance.OnPauseMenu;
+            @PauseMenu.canceled -= instance.OnPauseMenu;
         }
 
         public void RemoveCallbacks(IOnFootActions instance)
@@ -223,5 +274,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IOnFootActions
     {
         void OnMovment(InputAction.CallbackContext context);
+        void OnPauseMenu(InputAction.CallbackContext context);
     }
 }

@@ -1,0 +1,47 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class InputMenager : MonoBehaviour
+{
+    public static InputMenager inputMenager;
+    
+    PlayerInput playerInput;
+    PlayerInput.OnFootActions onFoot;
+
+    public UnityAction<Vector2> movmentInput;
+    public UnityAction pauseAction;
+
+    public void Awake()
+    {
+        playerInput = new PlayerInput();
+        onFoot = playerInput.onFoot;
+        inputMenager = this;
+    }
+
+    public void Update()
+    {
+        if (onFoot.PauseMenu.WasPressedThisFrame())
+        {
+            pauseAction?.Invoke();
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        movmentInput?.Invoke(onFoot.Movment.ReadValue<Vector2>());
+    }
+
+    private void OnEnable()
+    {
+        onFoot.Enable();
+    }
+
+    private void OnDisable()
+    {
+        onFoot.Disable();
+    }
+}

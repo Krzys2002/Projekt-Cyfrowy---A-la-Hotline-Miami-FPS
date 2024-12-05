@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DialogueEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -28,25 +29,16 @@ public class PlayerControler : MonoBehaviour
     
     CharacterController cc;
     
-    PlayerInput playerInput;
-    PlayerInput.OnFootActions footActions;
-    
     bool canMove = true;
     
     void Awake()
     {
-        playerInput = new PlayerInput();
-        footActions = playerInput.onFoot;
-    }
-    
-    void OnEnable()
-    {
-        footActions.Enable();
-    }
-    
-    void OnDisable()
-    {
-        footActions.Disable();
+        if (InputMenager.inputMenager == null)
+        {
+            Debug.LogError("InputMenager not found");
+        }
+
+        InputMenager.inputMenager.movmentInput += PlayerMovement;
     }
     
     // Start is called before the first frame update
@@ -91,12 +83,6 @@ public class PlayerControler : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
-    
-    // FixedUpdate is called once per physics frame
-    void FixedUpdate()
-    {
-        PlayerMovement(footActions.Movment.ReadValue<Vector2>());
     }
 
     // Player camera rotation
