@@ -98,9 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ab2c3d056954f96b59544b7ec43919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dialogs:
-  - dialog: {fileID: 0}
-    requirements: []
+  Dialogs: []
 --- !u!114 &1775375694349011489
 MonoBehaviour:
   m_ObjectHideFlags: 0

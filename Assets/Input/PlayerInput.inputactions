@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interation",
+                    "type": "Button",
+                    "id": "85eba231-b3d2-4576-861e-4323524d3563",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -121,6 +130,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7616ad98-f8f1-4f42-b71d-8c7b0f1f48c4",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

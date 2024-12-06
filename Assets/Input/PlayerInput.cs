@@ -44,6 +44,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interation"",
+                    ""type"": ""Button"",
+                    ""id"": ""85eba231-b3d2-4576-861e-4323524d3563"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -145,6 +154,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Pause Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7616ad98-f8f1-4f42-b71d-8c7b0f1f48c4"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -155,6 +175,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_onFoot = asset.FindActionMap("onFoot", throwIfNotFound: true);
         m_onFoot_Movment = m_onFoot.FindAction("Movment", throwIfNotFound: true);
         m_onFoot_PauseMenu = m_onFoot.FindAction("Pause Menu", throwIfNotFound: true);
+        m_onFoot_Interation = m_onFoot.FindAction("Interation", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -223,12 +244,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IOnFootActions> m_OnFootActionsCallbackInterfaces = new List<IOnFootActions>();
     private readonly InputAction m_onFoot_Movment;
     private readonly InputAction m_onFoot_PauseMenu;
+    private readonly InputAction m_onFoot_Interation;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
         public OnFootActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movment => m_Wrapper.m_onFoot_Movment;
         public InputAction @PauseMenu => m_Wrapper.m_onFoot_PauseMenu;
+        public InputAction @Interation => m_Wrapper.m_onFoot_Interation;
         public InputActionMap Get() { return m_Wrapper.m_onFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -244,6 +267,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @PauseMenu.started += instance.OnPauseMenu;
             @PauseMenu.performed += instance.OnPauseMenu;
             @PauseMenu.canceled += instance.OnPauseMenu;
+            @Interation.started += instance.OnInteration;
+            @Interation.performed += instance.OnInteration;
+            @Interation.canceled += instance.OnInteration;
         }
 
         private void UnregisterCallbacks(IOnFootActions instance)
@@ -254,6 +280,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @PauseMenu.started -= instance.OnPauseMenu;
             @PauseMenu.performed -= instance.OnPauseMenu;
             @PauseMenu.canceled -= instance.OnPauseMenu;
+            @Interation.started -= instance.OnInteration;
+            @Interation.performed -= instance.OnInteration;
+            @Interation.canceled -= instance.OnInteration;
         }
 
         public void RemoveCallbacks(IOnFootActions instance)
@@ -275,5 +304,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnMovment(InputAction.CallbackContext context);
         void OnPauseMenu(InputAction.CallbackContext context);
+        void OnInteration(InputAction.CallbackContext context);
     }
 }

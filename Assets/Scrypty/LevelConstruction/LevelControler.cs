@@ -47,6 +47,11 @@ public class LevelControler : MonoBehaviour
         startSubLevel.playerEnter(null);
         startSubLevel.ActivateEnemies();
     }
+    
+    public void TriggerStartingSubLevel()
+    {
+        startSubLevel.setTriger(true);
+    }
 
     // Get enemies in level
     public List<GameObject> getEnemies()

@@ -52,10 +52,16 @@ public class SubLevel : MonoBehaviour
     
     public void setTriger(bool triger)
     {
-        this.triger = triger;
         if (triger)
         {
+            Debug.Log("SubLevel " + gameObject.name + " was triggered.");
             EventManager.Levels.OnSubLevelTrigger.Invoke(this);
+            this.triger = triger;
+        }
+        else
+        {
+            Debug.Log("SubLevel " + gameObject.name + " was untriggered.");
+            this.triger = triger;
         }
     }
     
@@ -66,19 +72,11 @@ public class SubLevel : MonoBehaviour
     
     public void playerEnter(Gate enteredGate)
     {
-        //Debug.Log("Player enter " + gameObject.name);
-        //Debug.Log("Number of gates: " + gates.Count);
         playerWasInside = true;
-        triger = true;
-        Debug.Log("Player entered " + gameObject.name);
-        Debug.Log("Number of gates: " + gates.Count);
         foreach (Gate gate in gates)
         {
-            Debug.Log("Gate: " + gate.gameObject.name);
             if(gate != enteredGate)
             {
-                Debug.Log("Activate clouse sublevels at gate " + gate.gameObject.name);
-                //Debug.Log("Activate clouse sublevels at gate " + gate.gameObject.name);
                 gate.activateCloseSublevels(this);
             }
         }

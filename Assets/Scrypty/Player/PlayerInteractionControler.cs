@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DialogueEditor;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerControler))]
 public class PlayerInteractionControler : MonoBehaviour
 {
     private bool canInteract = true;
@@ -22,29 +23,26 @@ public class PlayerInteractionControler : MonoBehaviour
         
         EventManager.Player.OnPlayerEnterDialogue += DisableInteraction;
         EventManager.Player.OnPlayerExitDialogue += EnableInteraction;
+        
+        InputMenager.inputMenager.interationAction += Interact;
     }
-    
-    // Update is called once per frame  
-    void Update()
+
+    void Interact()
     {
         if(!canInteract)
         {
             return;
         }
-        // Check if player pressed E
-        if (Input.GetKeyDown(KeyCode.E))
+        
+        if (currentInteractable == null)
         {
-            // Check if current interactable is not null
-            if (currentInteractable == null)
-            {
-                return;
-            }
+            return;
+        }
             
-            // Check if object is interactable
-            if(currentInteractable.isInteractable)
-            {
-                currentInteractable.Interact();
-            }
+        // Check if object is interactable
+        if(currentInteractable.isInteractable)
+        {
+            currentInteractable.Interact();
         }
     }
 

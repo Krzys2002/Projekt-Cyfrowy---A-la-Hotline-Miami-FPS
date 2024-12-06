@@ -57,8 +57,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd7a4c981ff9445290ffbacb358fc1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 3000
-  sensY: 3000
+  maxSenstivity: 5000
+  minSenstivity: 500
+  sensitivitySlider: {fileID: 5300761318064147091}
   moveSpeed: 7
   gravity: -9.81
   cameraOrientation: {fileID: 0}
@@ -106,7 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 2654650594279056326}
-  cameraOrientation: {fileID: 0}
 --- !u!114 &5238040058967487678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae0b83f5ce36463e9e4f1afaf09a19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
   cameraPoint: {fileID: 4053401871199469807}
 --- !u!114 &6694594595658083195
 MonoBehaviour:
@@ -273,7 +272,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 656256577705495086}
@@ -407,7 +406,7 @@ Transform:
   m_GameObject: {fileID: 4012270024015456069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33, y: 0.3, z: 0.46}
+  m_LocalPosition: {x: 0.33, y: 0.392, z: 0.46}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -525,7 +524,7 @@ Transform:
   m_GameObject: {fileID: 4108621265074767209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.752, z: 0}
+  m_LocalPosition: {x: 0, y: 0.989, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -701,11 +700,54 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_Value
+      value: 0.5556
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5221723266410974655}
+    - target: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeMouseSensitivity
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerControler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+--- !u!114 &5300761318064147091 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4058893173734531474, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+  m_PrefabInstance: {fileID: 8197681085646908161}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7517144202225510666 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1843732912141615627, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}

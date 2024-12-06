@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using DialogueEditor;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerControler : MonoBehaviour
 {
     [Header("Camera")]
-    public float sensX;
-    public float sensY;
+    public float maxSenstivity = 5000;
+    public float minSenstivity = 500;
+    public Slider sensitivitySlider;
+    private float sensX = 3000;
+    private float sensY = 3000;
     
     [Header("Movement")]
     public float moveSpeed;
@@ -56,6 +60,12 @@ public class PlayerControler : MonoBehaviour
         
         EventManager.Player.OnPlayerEnterDialogue += DisableMovement;
         EventManager.Player.OnPlayerExitDialogue += EnableMovement;
+        
+        // Set initial slider value based on starting sensitivity
+        if (sensitivitySlider != null)
+        {
+            sensitivitySlider.value = (sensX - minSenstivity) / (maxSenstivity - minSenstivity);
+        }
     }
 
     // Update is called once per frame
@@ -83,6 +93,18 @@ public class PlayerControler : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+    
+    public void ChangeMouseSensitivity()
+    {
+        if(sensitivitySlider == null)
+        {
+            Debug.LogError("Sensitivity slider not found");
+            return;
+        }
+        float amount = sensitivitySlider.value; // Get the value from the slider
+        sensX = Mathf.Lerp(minSenstivity, maxSenstivity, amount);
+        sensY = Mathf.Lerp(minSenstivity, maxSenstivity, amount);
     }
 
     // Player camera rotation

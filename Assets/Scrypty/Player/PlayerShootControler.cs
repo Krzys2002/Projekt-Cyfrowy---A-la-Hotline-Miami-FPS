@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerControler))]
 public class PlayerShootControler : MonoBehaviour
 {
     // Weapon reference
     public WeaponControler weapon;
     // Camera orientation reference
-    public Transform cameraOrientation;
+    private Transform cameraOrientation;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Get camera orientation
+        cameraOrientation = GetComponent<PlayerControler>().cameraOrientation;
+    }
 
     // Update is called once per frame
     void Update()
