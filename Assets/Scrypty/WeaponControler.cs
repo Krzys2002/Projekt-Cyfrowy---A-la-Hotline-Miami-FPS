@@ -19,14 +19,7 @@ public class WeaponControler : MonoBehaviour
     
     private Vector3 origin;
     private Vector3 direction;
-
-    private int layer_mask;
-
-
-    private void Start()
-    {
-        layer_mask = LayerMask.GetMask("Hitable");
-    }
+    
 
     void Update()
     {
@@ -48,7 +41,7 @@ public class WeaponControler : MonoBehaviour
         //Debug.Log(layer_mask);
         
         // Check if raycast hit something
-        if(Physics.Raycast(origin, direction, out hit, range, layer_mask))
+        if(Physics.Raycast(origin, direction, out hit, range))
         {
             // Set origin and direction
             this.direction = direction;

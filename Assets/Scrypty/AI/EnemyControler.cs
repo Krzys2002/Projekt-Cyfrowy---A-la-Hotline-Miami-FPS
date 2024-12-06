@@ -22,6 +22,8 @@ public class EnemyControler : MonoBehaviour
     // Enemy vision
     [SerializeField]
     public int numberOfRays = 10;
+    [SerializeField]
+    private bool isStatic = false;
     // Player transform
     private Transform playerTransform;
     // Enemy rays
@@ -79,9 +81,6 @@ public class EnemyControler : MonoBehaviour
         
         // Set current hp to max hp
         currentHp = maxHp;
-        // Start looking at player coroutine
-        StartCoroutine(LookAtPlayerCoroutine());
-        StartCoroutine(FollowPlayer());
     }
     
     // OnEnable is called when the object becomes enabled and active
@@ -91,7 +90,22 @@ public class EnemyControler : MonoBehaviour
         playerTransform = GameObject.FindWithTag("Player").transform;
         // start looking at player coroutine
         StartCoroutine(LookAtPlayerCoroutine());
-        StartCoroutine(FollowPlayer());
+        if (!isStatic)
+        {
+            StartCoroutine(FollowPlayer());
+        }
+    }
+    
+    // OnDisable is called when the behaviour becomes disabled
+    private void OnDisable()
+    {
+        // Stop looking at player coroutine
+        StopAllCoroutines();
+    }
+    
+    public bool getIsStatic()
+    {
+        return isStatic;
     }
 
     // Update is called once per frame
@@ -109,8 +123,8 @@ public class EnemyControler : MonoBehaviour
         {
             // create random deviation from the direction
             Vector3 direction = transform.forward +
-                                (Quaternion.Euler(random.Next(-6, 6) * (1.1f - accuracy),
-                                    random.Next(-45, 45) * (1.1f - accuracy), 0) * transform.forward);
+                                (Quaternion.Euler(random.Next(-6, 6) * (1f - accuracy),
+                                    random.Next(-45, 45) * (1f - accuracy), 0) * transform.forward);
             // Shoot
             weaponControler.Shoot(transform.position, direction);
             
@@ -227,14 +241,14 @@ public class EnemyControler : MonoBehaviour
                 agent.avoidancePriority = 50;
                 agent.SetDestination(playerTransform.position);
             }
-            else if (Vector3.Distance(transform.position, playerTransform.position) < 10f)
+            else if (Vector3.Distance(transform.position, playerTransform.position) < 9f)
             {
                 agent.avoidancePriority = 1;
                 agent.SetDestination(transform.position);
             }
             else
             {
-                yield return new WaitForSeconds(0.5f); // Add 0.5 second delay
+                yield return new WaitForSeconds(0.8f); // Add 0.5 second delay
                 agent.avoidancePriority = 1;
                 agent.SetDestination(transform.position);
             }

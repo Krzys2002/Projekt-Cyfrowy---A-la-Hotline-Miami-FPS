@@ -137,6 +137,11 @@ public class LevelEnemyControler : MonoBehaviour
 
             EnemyControler enemyControler = enemy.GetComponent<EnemyControler>();
 
+            if (enemyControler.getIsStatic())
+            {
+                continue;
+            }
+
             if (enemyControler.InSubLevel().getTriger() == false)
             {
                 continue;

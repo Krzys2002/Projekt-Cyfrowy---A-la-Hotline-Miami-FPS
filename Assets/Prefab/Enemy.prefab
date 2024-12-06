@@ -48,9 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponControler: {fileID: 7306033503121029881}
-  maxHp: 25
+  maxHp: 40
   accuracy: 0.9
   numberOfRays: 10
+  isStatic: 0
 --- !u!195 &1851969171161943362
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -327,6 +328,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 0.5
-  damage: 5
+  damage: 10
   range: 100
   isAutomatic: 1
