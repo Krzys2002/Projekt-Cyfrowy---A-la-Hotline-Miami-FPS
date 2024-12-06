@@ -64,12 +64,14 @@ public class LevelEnemyControler : MonoBehaviour
     // then player triggers enemy activation
     private void OnEnemyTrigger(Component enemy)
     {
+        Debug.Log("Enemy triggered " + enemy.name);
         currentNumberOfActiveEnemies++;
     }
 
     // then enemy dies
     private void onEnemyDeath(Component enemy)
     {
+        
         // remove enemy from list
         enemies.Remove(enemy.gameObject);
         currentNumberOfActiveEnemies--;
@@ -102,6 +104,7 @@ public class LevelEnemyControler : MonoBehaviour
         {
             yield break;
         }
+        
 
         // find distance to player for each enemy and check if is active
         foreach (GameObject enemy in enemies)
@@ -111,8 +114,16 @@ public class LevelEnemyControler : MonoBehaviour
                 continue;
             }
             
+            Vector3 position = enemy.transform.position;
+            
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(position, out hit, 100, NavMesh.AllAreas))
+            {
+                position = hit.position;
+            }
+            
             NavMeshPath path = new NavMeshPath();
-            if (NavMesh.CalculatePath(playerTransform.position, enemy.transform.position, NavMesh.AllAreas, path))
+            if (NavMesh.CalculatePath(playerTransform.position, position, NavMesh.AllAreas, path))
             {
                 float distance = 0f;
                 for (int i = 1; i < path.corners.Length; i++)
@@ -141,6 +152,7 @@ public class LevelEnemyControler : MonoBehaviour
             {
                 continue;
             }
+            
 
             if (enemyControler.InSubLevel().getTriger() == false)
             {

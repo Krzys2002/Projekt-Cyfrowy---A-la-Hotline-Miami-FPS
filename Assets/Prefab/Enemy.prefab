@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 6163210545613830628}
   - {fileID: 5277250087073349096}
+  - {fileID: 5038851279375754140}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5383462753890531032
@@ -51,6 +52,7 @@ MonoBehaviour:
   maxHp: 40
   accuracy: 0.9
   numberOfRays: 10
+  obstacle: {fileID: 7631042148517875357}
   isStatic: 0
 --- !u!195 &1851969171161943362
 NavMeshAgent:
@@ -61,7 +63,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3560210670660641252}
   m_Enabled: 1
   m_AgentTypeID: -334000983
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
@@ -73,7 +75,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6555659526515400745
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,3 +333,51 @@ MonoBehaviour:
   damage: 10
   range: 100
   isAutomatic: 1
+--- !u!1 &7631042148517875357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5038851279375754140}
+  - component: {fileID: 7314308043247878119}
+  m_Layer: 7
+  m_Name: obs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5038851279375754140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631042148517875357}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6287342678879663086}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &7314308043247878119
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7631042148517875357}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.1

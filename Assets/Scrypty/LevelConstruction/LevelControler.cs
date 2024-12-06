@@ -14,6 +14,8 @@ public class LevelControler : MonoBehaviour
     // Sublevels in level
     public List<SubLevel> subLevels;
     
+    public bool ExperimentalEnemyObstacle = false;
+    
     // Enemies in level
     List<GameObject> enemies;
     
@@ -38,6 +40,11 @@ public class LevelControler : MonoBehaviour
         {
             subLevel.LevelsRegisters(levelReg);
             subLevel.DeactivateEnemies();
+        }
+
+        if (ExperimentalEnemyObstacle)
+        {
+            StoreData.Enemy.useObtacie = true;
         }
         
         

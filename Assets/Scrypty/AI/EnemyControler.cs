@@ -23,6 +23,8 @@ public class EnemyControler : MonoBehaviour
     [SerializeField]
     public int numberOfRays = 10;
     [SerializeField]
+    private GameObject obstacle;
+    [SerializeField]
     private bool isStatic = false;
     // Player transform
     private Transform playerTransform;
@@ -200,14 +202,14 @@ public class EnemyControler : MonoBehaviour
 
                 if (hit.transform.CompareTag("Player"))
                 { 
+                    if(EventManager.Enemies.OnEnemyTriggerByPlayer != null && !canMove)
+                    {
+                        EventManager.Enemies.OnEnemyTriggerByPlayer.Invoke(this);
+                    }
                     // Set target rotation to look at player
                     targetRotation = Quaternion.LookRotation(ray.direction);
                     playerFound = true;
                     canMove = true;
-                    if(EventManager.Enemies.OnEnemyTriggerByPlayer != null && !inSubLevel.getTriger())
-                    {
-                        EventManager.Enemies.OnEnemyTriggerByPlayer.Invoke(this);
-                    }
                 }
 
                 if (hit.transform.CompareTag("Enemy"))
@@ -238,19 +240,41 @@ public class EnemyControler : MonoBehaviour
         {
             if (!isLookingAtPlayer && canMove)
             {
+                //Debug.Log("Following player.");
+                if (StoreData.Enemy.useObtacie)
+                {
+                    obstacle.SetActive(false);
+                    agent.enabled = true;
+                }
                 agent.avoidancePriority = 50;
                 agent.SetDestination(playerTransform.position);
             }
-            else if (Vector3.Distance(transform.position, playerTransform.position) < 9f)
+            else if (Vector3.Distance(transform.position, playerTransform.position) < 10f)
             {
-                agent.avoidancePriority = 1;
-                agent.SetDestination(transform.position);
+                if(StoreData.Enemy.useObtacie)
+                {
+                    agent.enabled = false;
+                    obstacle.SetActive(true);
+                }
+                else
+                {
+                    agent.avoidancePriority = 1;
+                    agent.SetDestination(transform.position);
+                }
             }
             else
             {
-                yield return new WaitForSeconds(0.8f); // Add 0.5 second delay
-                agent.avoidancePriority = 1;
-                agent.SetDestination(transform.position);
+                yield return new WaitForSeconds(0.5f); // Add 0.5 second delay
+                if(StoreData.Enemy.useObtacie)
+                {
+                    agent.enabled = false;
+                    obstacle.SetActive(true);
+                }
+                else
+                {
+                    agent.avoidancePriority = 1;
+                    agent.SetDestination(transform.position);
+                }
             }
                         
             yield return new WaitForSeconds(0.1f);
