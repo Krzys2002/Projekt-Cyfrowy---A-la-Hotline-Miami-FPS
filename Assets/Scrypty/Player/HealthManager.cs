@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [DefaultExecutionOrder(100)]
 public class HealthManager : MonoBehaviour
 {
-    public Image HealthBar;
+    public Q_Vignette_Single HealthIndicator;
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +22,22 @@ public class HealthManager : MonoBehaviour
 
     public void healthChange(float currentPresent)
     {
-        if(HealthBar == null)
+        if(HealthIndicator == null)
         {
             Debug.LogError("HealthBar is null");
             Destroy(gameObject);
             return;
         }
-        HealthBar.fillAmount = currentPresent;
+
+        Debug.Log("Health change: " + currentPresent);
+        if (currentPresent == 1)
+        {
+            HealthIndicator.SetVignetteMainScale(0);
+        }
+        else
+        {
+            HealthIndicator.mainScale = Mathf.Lerp(0.5f, 6f, 1 - currentPresent);
+        }
     }
 
     private void OnDestroy()
