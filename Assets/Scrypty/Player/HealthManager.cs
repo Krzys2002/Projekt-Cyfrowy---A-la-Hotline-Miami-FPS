@@ -27,7 +27,7 @@ public class HealthManager : MonoBehaviour
         Debug.Log("Health change: " + currentPresent);
         if (currentPresent == 1)
         {
-            HealthIndicator.SetVignetteMainScale(0);
+            HealthIndicator.mainScale = 0f;
         }
         else
         {

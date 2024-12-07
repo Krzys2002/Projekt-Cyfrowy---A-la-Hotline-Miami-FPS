@@ -16,6 +16,7 @@ public class PlayerShootControler : MonoBehaviour
     {
         // Get camera orientation
         cameraOrientation = GetComponent<PlayerControler>().cameraOrientation;
+        InputMenager.inputMenager.reloadAction += PlayerReload;
     }
 
     // Update is called once per frame
@@ -52,5 +53,10 @@ public class PlayerShootControler : MonoBehaviour
                 }
             }
         }
+    }
+    
+    void PlayerReload()
+    {
+        weapon.Reload();
     }
 }

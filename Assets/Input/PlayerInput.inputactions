@@ -31,20 +31,18 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "a472858b-1e4a-4734-bd54-926a14b32dee",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "da26927c-8eea-4d4d-9d53-d2466ffa8ca0",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movment",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "WSAD",
                     "id": "eb741510-0eab-48a8-b7d8-5b9a649795a1",
@@ -113,34 +111,23 @@
                 },
                 {
                     "name": "",
-                    "id": "036725be-7073-4dbf-9306-61b38e752587",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a7162f79-9211-4943-bc6e-b8df981da9cf",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7616ad98-f8f1-4f42-b71d-8c7b0f1f48c4",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Interation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a37f8db-5f1b-4801-9ecf-16cdbb4b65b5",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

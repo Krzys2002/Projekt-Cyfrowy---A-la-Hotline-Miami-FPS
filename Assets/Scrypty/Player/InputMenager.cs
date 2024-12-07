@@ -16,6 +16,7 @@ public class InputMenager : MonoBehaviour
     public UnityAction<Vector2> movmentInput;
     public UnityAction pauseAction;
     public UnityAction interationAction;
+    public UnityAction reloadAction;
 
     public void Awake()
     {
@@ -34,6 +35,11 @@ public class InputMenager : MonoBehaviour
         if (onFoot.Interation.WasPressedThisFrame())
         {
             interationAction?.Invoke();
+        }
+        
+        if (onFoot.Reload.WasPressedThisFrame())
+        {
+            reloadAction?.Invoke();
         }
     }
 
