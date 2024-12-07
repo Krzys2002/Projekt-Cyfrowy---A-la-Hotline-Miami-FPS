@@ -28,7 +28,13 @@ public class PlayerShootControler : MonoBehaviour
             if(Input.GetMouseButton(0))
             {
                 //Debug.Log("Player is holding mouse button");
-                weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
+                if (!weapon.Shoot(cameraOrientation.position, cameraOrientation.forward))
+                {
+                    if (weapon.isEmpty())
+                    {
+                        weapon.Reload();
+                    }
+                }
             }
         }
         else
@@ -37,7 +43,13 @@ public class PlayerShootControler : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 //Debug.Log("Player pressed mouse button");
-                weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
+                if (!weapon.Shoot(cameraOrientation.position, cameraOrientation.forward))
+                {
+                    if (weapon.isEmpty())
+                    {
+                        weapon.Reload();
+                    }
+                }
             }
         }
     }

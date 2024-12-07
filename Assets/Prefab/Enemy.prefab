@@ -332,6 +332,8 @@ MonoBehaviour:
   fireRate: 0.5
   damage: 10
   range: 100
+  maxAmmo: 6
+  reloadTime: 4
   isAutomatic: 1
 --- !u!1 &7631042148517875357
 GameObject:
