@@ -10,6 +10,8 @@ public class Interactable : MonoBehaviour
     
     public UnityEvent<GameObject> OnInteract;
     
+    public string Description;
+    
     public void SetInteractable(bool value)
     {
         isInteractable = value;
@@ -29,5 +31,10 @@ public class Interactable : MonoBehaviour
                 EventManager.Objects.OnObjectInteract.Invoke(gameObject, 0);
             }
         }
+    }
+
+    public string GetDescription()
+    {
+        return Description;
     }
 }

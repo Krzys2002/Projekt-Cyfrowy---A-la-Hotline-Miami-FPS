@@ -44530,6 +44530,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1775375694349011489, guid: 1d87d8d79d94940c1aea3c78cf64dcd6, type: 3}
+      propertyPath: Description
+      value: Siergiej
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775375694349011489, guid: 1d87d8d79d94940c1aea3c78cf64dcd6, type: 3}
       propertyPath: isInteractable
       value: 1
       objectReference: {fileID: 0}
@@ -69136,6 +69140,10 @@ PrefabInstance:
     - target: {fileID: 1264781910946855281, guid: 1d87d8d79d94940c1aea3c78cf64dcd6, type: 3}
       propertyPath: Dialogs.Array.data[1].requirementsControler.onRequirementsCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775375694349011489, guid: 1d87d8d79d94940c1aea3c78cf64dcd6, type: 3}
+      propertyPath: Description
+      value: Artem
       objectReference: {fileID: 0}
     - target: {fileID: 1775375694349011489, guid: 1d87d8d79d94940c1aea3c78cf64dcd6, type: 3}
       propertyPath: isInteractable

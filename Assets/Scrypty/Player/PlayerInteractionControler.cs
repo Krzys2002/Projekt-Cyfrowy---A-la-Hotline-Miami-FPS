@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using DialogueEditor;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerControler))]
 public class PlayerInteractionControler : MonoBehaviour
 {
+    public TextMeshProUGUI interactText;
     private bool canInteract = true;
     // Camera reference
     private new Transform camera;
@@ -51,16 +53,27 @@ public class PlayerInteractionControler : MonoBehaviour
     {
         while (enabled)
         {
-            // Debug.Log("Checking for interaction");
+            yield return new WaitForSeconds(0.1f); // 10 time pre second
+            
             // Raycast for detecting interactable objects
             RaycastHit hit;
             // Check if raycast hit something
-            if (Physics.Raycast(camera.position, camera.forward, out hit, 3))
+            if (!Physics.Raycast(camera.position, camera.forward, out hit, 3))
             {
-                // Get interactable component from hit object
-                currentInteractable = hit.collider.GetComponent<Interactable>();
+                interactText.text = "";
+                continue;
             }
-            yield return new WaitForSeconds(0.1f); // 10 time pre second
+            
+            // Get interactable component from hit object
+            currentInteractable = hit.collider.GetComponent<Interactable>();
+            if (currentInteractable != null)
+            {
+                interactText.text = currentInteractable.GetDescription();
+            }
+            else
+            {
+                interactText.text = "";
+            }
         }
         
     }
