@@ -18,8 +18,8 @@ TagManager:
   - Walls
   - Player
   - Hitable
-  - 
-  - 
+  - offLight
+  - post-proces
   - 
   - 
   - 
