@@ -7,6 +7,8 @@ public class ScenePreloader : MonoBehaviour
     private AsyncOperation asyncOperation;
     [SerializeField]
     private string sceneName;
+    [SerializeField]
+    private bool canChangeScene = true;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,10 @@ public class ScenePreloader : MonoBehaviour
     
     public void ChangeSceneAfterPreload()
     {
+        if (!canChangeScene)
+        {
+            return;
+        }
         Debug.Log("Changing scene after preload");
         StartCoroutine(ChangeScene());
         //SceneManager.CreateScene(sceneName);
@@ -47,6 +53,10 @@ public class ScenePreloader : MonoBehaviour
     // Function to change the scene after it has been preloaded
     private IEnumerator ChangeScene()
     {
+        if(!canChangeScene)
+        {
+            yield return null;
+        }
         while (asyncOperation != null && asyncOperation.progress < 0.9f)
         {
             Debug.Log("Scene is loading: " + asyncOperation.progress);
@@ -58,5 +68,10 @@ public class ScenePreloader : MonoBehaviour
             Debug.Log("Scene is loaded: " + asyncOperation.progress);
             asyncOperation.allowSceneActivation = true;
         }
+    }
+    
+    public void setCanChangeScene(bool canChangeScene)
+    {
+        this.canChangeScene = canChangeScene;
     }
 }
