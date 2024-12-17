@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +21,10 @@ public class WeaponControler : MonoBehaviour
     public bool isAutomatic;
     
     public UnityAction<int> OnAmmoChange;
+    
+    public AudioSource audioSource; // Audio source for shooting sound
+    public AudioClip shootingSound; // Shooting sound
+    public AudioClip reloadingSound; // Reloading sound
     
     // Time to next fire
     float nextTimeToFire = 0f;
@@ -75,6 +80,9 @@ public class WeaponControler : MonoBehaviour
             this.direction = direction;
             this.origin = origin;
             
+            // Play shooting sound
+            audioSource.PlayOneShot(shootingSound);
+            
             // Check if hit object has BulletHitControler component
             BulletHitControler hitControler = hit.transform.GetComponent<BulletHitControler>();
             if(hitControler != null)
@@ -99,6 +107,8 @@ public class WeaponControler : MonoBehaviour
     {
         currentAmmo = maxAmmo;
         nextTimeToFire = reloadTime;
+        // Play reloading sound
+        audioSource.PlayOneShot(reloadingSound);
     }
     
     public int GetAmountOfAmmo()
