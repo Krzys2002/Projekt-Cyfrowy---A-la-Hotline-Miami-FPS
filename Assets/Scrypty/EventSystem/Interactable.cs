@@ -12,6 +12,19 @@ public class Interactable : MonoBehaviour
     
     public string Description;
     
+    public AudioClip sound;
+    
+    private AudioSource audioSource;
+    
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if(audioSource == null)
+        {
+            Debug.LogError("Audio source not found on object: " + gameObject.name);
+        }
+    }
+    
     public void SetInteractable(bool value)
     {
         isInteractable = value;
@@ -20,16 +33,23 @@ public class Interactable : MonoBehaviour
     public void Interact()
     {
         // check if object is interactable
-        if (isInteractable)
+        if (!isInteractable)
         {
-            // invoke on interact event
-            OnInteract.Invoke(gameObject);
-            // check if someone is listening to the event
-            if (EventManager.Objects.OnObjectInteract != null)
-            {
-                // invoke on object interact event
-                EventManager.Objects.OnObjectInteract.Invoke(gameObject, 0);
-            }
+            return;
+        }
+        
+        // invoke on interact event
+        OnInteract.Invoke(gameObject);
+        if(sound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(sound);
+        }
+        
+        // check if someone is listening to the event
+        if (EventManager.Objects.OnObjectInteract != null)
+        {
+            // invoke on object interact event
+            EventManager.Objects.OnObjectInteract.Invoke(gameObject, 0);
         }
     }
 

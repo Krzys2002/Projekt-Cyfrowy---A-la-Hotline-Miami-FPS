@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.65, z: -9.896519}
-  m_LocalScale: {x: 1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6163210545613830628}
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponControler: {fileID: 7306033503121029881}
-  maxHp: 40
+  maxHp: 30
   accuracy: 0.9
   numberOfRays: 10
   obstacle: {fileID: 7631042148517875357}
@@ -234,10 +234,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 1.9
+  m_Radius: 0.5
+  m_Height: 2.4
   m_Direction: 1
-  m_Center: {x: 0, y: -0.1, z: 0}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!114 &2399795907849697905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +324,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -395,7 +395,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -555,15 +555,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: fd7175dfa1239b34f88560f805ff4c8d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fd7175dfa1239b34f88560f805ff4c8d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fd7175dfa1239b34f88560f805ff4c8d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fd7175dfa1239b34f88560f805ff4c8d, type: 3}
       propertyPath: m_LocalPosition.x

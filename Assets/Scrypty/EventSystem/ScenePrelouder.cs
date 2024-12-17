@@ -31,12 +31,12 @@ public class ScenePreloader : MonoBehaviour
                 break;
             }
             
-            Debug.Log("Scene is loading: " + asyncOperation.progress);
+            //Debug.Log("Scene is loading: " + asyncOperation.progress);
 
             yield return null;
         }
         
-        Debug.Log("Scene is loaded: " + asyncOperation.progress);
+        //Debug.Log("Scene is loaded: " + asyncOperation.progress);
     }
     
     public void ChangeSceneAfterPreload()

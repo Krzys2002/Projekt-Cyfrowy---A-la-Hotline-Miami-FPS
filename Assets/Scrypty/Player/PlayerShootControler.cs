@@ -32,8 +32,7 @@ public class PlayerShootControler : MonoBehaviour
                 WeaponControler.WeaponState state = weapon.GetWeaponState();
                 if (state == WeaponControler.WeaponState.OutOfAmmo)
                 {
-                    PlayerAnimation.PlayerReload();
-                    weapon.Reload();
+                    PlayerReload();
                 }
                 
                 if(state == WeaponControler.WeaponState.Ready)
@@ -52,8 +51,7 @@ public class PlayerShootControler : MonoBehaviour
                 WeaponControler.WeaponState state = weapon.GetWeaponState();
                 if (state == WeaponControler.WeaponState.OutOfAmmo)
                 {
-                    PlayerAnimation.PlayerReload();
-                    weapon.Reload();
+                    PlayerReload();
                 }
                 
                 if(state == WeaponControler.WeaponState.Ready)
@@ -67,6 +65,11 @@ public class PlayerShootControler : MonoBehaviour
     
     void PlayerReload()
     {
+        if(weapon.GetWeaponState() == WeaponControler.WeaponState.Reloading)
+        {
+            return;
+        }
+        PlayerAnimation.PlayerReload();
         weapon.Reload();
     }
 }
