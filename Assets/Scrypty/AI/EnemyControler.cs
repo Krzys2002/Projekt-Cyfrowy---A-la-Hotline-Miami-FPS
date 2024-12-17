@@ -128,12 +128,10 @@ public class EnemyControler : MonoBehaviour
                                 (Quaternion.Euler(random.Next(-6, 6) * (1f - accuracy),
                                     random.Next(-45, 45) * (1f - accuracy), 0) * transform.forward);
             // Shoot
-            if (!weaponControler.Shoot(transform.position, direction))
+            WeaponControler.WeaponState weaponStatus = weaponControler.Shoot(transform.position, direction);
+            if (weaponStatus == WeaponControler.WeaponState.OutOfAmmo)
             {
-                if (weaponControler.isEmpty())
-                {
-                    weaponControler.Reload();
-                }
+                weaponControler.Reload();
             }
             
             // triger enemies in sublevel

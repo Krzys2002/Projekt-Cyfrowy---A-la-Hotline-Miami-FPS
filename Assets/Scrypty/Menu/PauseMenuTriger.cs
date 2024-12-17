@@ -23,7 +23,7 @@ public class PauseMenuTriger : MonoBehaviour
 
     private void PauseAction()
     {
-        Debug.Log("Pause action: " + isPaused);
+        //Debug.Log("Pause action: " + isPaused);
         if (isPaused)
         {
             Resume();
