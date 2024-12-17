@@ -39,6 +39,8 @@ public class WeaponControler : MonoBehaviour
     public Light shootingLight;
     public float lightDuration;
     
+    public ParticleSystem shootingParticles;
+    
     private bool lightEnabled;
     private float lightTime;
     
@@ -105,6 +107,7 @@ public class WeaponControler : MonoBehaviour
         // Play shooting sound
         audioSource.PlayOneShot(shootingSound);
         TriggerShootLight();
+        shootingParticles.Play();
         
         weaponState = WeaponState.OnCooldown;
         
