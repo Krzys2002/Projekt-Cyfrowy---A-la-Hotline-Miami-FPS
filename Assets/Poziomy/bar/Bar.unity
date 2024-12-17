@@ -43557,6 +43557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1207070227}
   - component: {fileID: 1207070228}
+  - component: {fileID: 1207070229}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -43666,6 +43667,31 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!169 &1207070229
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207070226}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5914052
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -48121,7 +48147,15 @@ PrefabInstance:
       value: 7.03
       objectReference: {fileID: 0}
     - target: {fileID: 8795922215630637853, guid: ecf8571a97144da4ca5c15b97c6299e8, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f18df280f7b1ad047866013067188ba3, type: 3}
+    - target: {fileID: 8795922215630637853, guid: ecf8571a97144da4ca5c15b97c6299e8, type: 3}
       propertyPath: rolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795922215630637853, guid: ecf8571a97144da4ca5c15b97c6299e8, type: 3}
+      propertyPath: DopplerLevel
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8795922215630637853, guid: ecf8571a97144da4ca5c15b97c6299e8, type: 3}
