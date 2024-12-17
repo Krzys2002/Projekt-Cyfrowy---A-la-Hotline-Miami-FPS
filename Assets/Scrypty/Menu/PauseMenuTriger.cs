@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PauseMenuTriger : MonoBehaviour
 {
+    public List<GameObject> objectsToDisable;
     public GameObject pauseMenuUI; // Reference to the pause menu UI
     private bool isPaused = false; // Flag to check if the game is paused
     
@@ -43,6 +44,10 @@ public class PauseMenuTriger : MonoBehaviour
         Time.timeScale = 1f; // Resume the game time
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        foreach (GameObject objectToEnable in objectsToDisable)
+        {
+            objectToEnable.SetActive(true);
+        }
     }
 
     // Method to pause the game
@@ -54,5 +59,9 @@ public class PauseMenuTriger : MonoBehaviour
         Time.timeScale = 0f; // Pause the game time
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        foreach (GameObject objectToDisable in objectsToDisable)
+        {
+            objectToDisable.SetActive(false);
+        }
     }
 }

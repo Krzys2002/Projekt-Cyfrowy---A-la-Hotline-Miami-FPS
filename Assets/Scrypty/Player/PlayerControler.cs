@@ -12,8 +12,8 @@ public class PlayerControler : MonoBehaviour
     public float maxSenstivity = 5000;
     public float minSenstivity = 500;
     public Slider sensitivitySlider;
-    private float sensX = 3000;
-    private float sensY = 3000;
+    private float sensX = 1000;
+    private float sensY = 1000;
     
     [Header("Movement")]
     public float moveSpeed;

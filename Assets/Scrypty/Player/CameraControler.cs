@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     // Main camera is the camera that should be moved
-    private Camera mainCamera;
+    private Transform mainCamera;
     
     // Camera point is the point where the camera should be placed
     public Transform cameraPoint;
@@ -15,7 +15,7 @@ public class CameraControler : MonoBehaviour
     void Start()
     {
         // Get main camera
-        mainCamera = GetComponent<PlayerControler>().cameraOrientation.gameObject.GetComponent<Camera>();
+        mainCamera = GetComponent<PlayerControler>().cameraOrientation;
     }
 
     // Update is called once per frame

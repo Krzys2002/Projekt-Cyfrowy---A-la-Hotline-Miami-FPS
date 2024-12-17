@@ -11,11 +11,14 @@ public class PlayerAnimation : MonoBehaviour
     public static UnityAction PlayerStartMoving;
     public static UnityAction PlayerStopMoving;
     
-    public Animator animator;
+    public GameObject animatorObject;
+    
+    private Animator animator;
     
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+        animator = animatorObject.GetComponent<Animator>();
         PlayerShoot += Shoot;
         PlayerReload += Reload;
         PlayerStartMoving += StartMoving;
@@ -44,5 +47,13 @@ public class PlayerAnimation : MonoBehaviour
     void StopMoving()
     {
         animator.SetBool("IsMoving", false);
+    }
+    
+    void OnDestroy()
+    {
+        PlayerShoot -= Shoot;
+        PlayerReload -= Reload;
+        PlayerStartMoving -= StartMoving;
+        PlayerStopMoving -= StopMoving;
     }
 }
