@@ -66,7 +66,7 @@ public class PlayerInteractionControler : MonoBehaviour
             
             // Get interactable component from hit object
             currentInteractable = hit.collider.GetComponent<Interactable>();
-            if (currentInteractable != null)
+            if (currentInteractable != null && canInteract)
             {
                 interactText.text = currentInteractable.GetDescription();
             }
@@ -81,6 +81,7 @@ public class PlayerInteractionControler : MonoBehaviour
     // Disable interaction
     public void DisableInteraction(NPCConversation c, Transform t)
     {
+        interactText.text = "";
         canInteract = false;
     }
     

@@ -869,10 +869,6 @@ PrefabInstance:
       value: HealthManager
       objectReference: {fileID: 0}
     - target: {fileID: 6135702685010881938, guid: ff0d7ef52378771409c864300b62ec93, type: 3}
-      propertyPath: HealthBar
-      value: 
-      objectReference: {fileID: 7438760010886874961}
-    - target: {fileID: 6135702685010881938, guid: ff0d7ef52378771409c864300b62ec93, type: 3}
       propertyPath: HealthIndicator
       value: 
       objectReference: {fileID: 454160327700078366}
@@ -1255,6 +1251,14 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6989080569018165737, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2141305868240871976}
+    - target: {fileID: 6989080569018165737, guid: f71db3cb672984cfaa6c5b7c09aba051, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1394,20 +1398,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4414521665273587834, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
+    - {fileID: 5179830622110426126, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
+    - {fileID: 4791634329755324094, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8281164443217168867, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 3066650399866570661}
+      addedObject: {fileID: 8254947861742673178}
     - targetCorrespondingSourceObject: {fileID: 8281164443217168867, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 4955257671579923280}
+      addedObject: {fileID: 3066650399866570661}
     - targetCorrespondingSourceObject: {fileID: 8281164443217168867, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 5502938863297759454}
+      addedObject: {fileID: 4955257671579923280}
     - targetCorrespondingSourceObject: {fileID: 8281164443217168867, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8254947861742673178}
+      insertIndex: 3
+      addedObject: {fileID: 5502938863297759454}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3926023710479181283, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
       insertIndex: -1
@@ -1436,14 +1443,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 7517144202225510666}
---- !u!114 &7438760010886874961 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1983570038282570286, guid: 11f247b933a7537449ac5cb5e0de1e89, type: 3}
-  m_PrefabInstance: {fileID: 8988277355088432511}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

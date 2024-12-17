@@ -54,6 +54,8 @@ public class PlayerControler : MonoBehaviour
 
         // Get character controller
         cc = GetComponent<CharacterController>();
+        OnExitDialog(null);
+        canMove = true;
 
         EventManager.Player.OnPlayerEnterDialogue += OnEnterDialog;
         EventManager.Player.OnPlayerExitDialogue += OnExitDialog;
@@ -87,12 +89,14 @@ public class PlayerControler : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        canMove = false;
     }
 
     private void OnExitDialog(NPCConversation c)
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        canMove = true;
     }
     
     public void ChangeMouseSensitivity()

@@ -8,6 +8,7 @@ public class PauseMenuTriger : MonoBehaviour
 {
     public GameObject pauseMenuUI; // Reference to the pause menu UI
     private bool isPaused = false; // Flag to check if the game is paused
+    
     private void Awake()
     {
         if (InputMenager.inputMenager == null)
@@ -16,10 +17,13 @@ public class PauseMenuTriger : MonoBehaviour
         }
         
         InputMenager.inputMenager.pauseAction += PauseAction;
+        
+        Resume();
     }
-    
+
     private void PauseAction()
     {
+        Debug.Log("Pause action: " + isPaused);
         if (isPaused)
         {
             Resume();
@@ -44,6 +48,7 @@ public class PauseMenuTriger : MonoBehaviour
     // Method to pause the game
     void Pause()
     {
+        Debug.Log("Pause");
         pauseMenuUI.SetActive(true); // Show the pause menu UI
         isPaused = true; // Set the pause flag to true
         Time.timeScale = 0f; // Pause the game time
