@@ -29,12 +29,17 @@ public class PlayerShootControler : MonoBehaviour
             if(Input.GetMouseButton(0))
             {
                 //Debug.Log("Player is holding mouse button");
-                if (!weapon.Shoot(cameraOrientation.position, cameraOrientation.forward))
+                WeaponControler.WeaponState state = weapon.GetWeaponState();
+                if (state == WeaponControler.WeaponState.OutOfAmmo)
                 {
-                    if (weapon.isEmpty())
-                    {
-                        weapon.Reload();
-                    }
+                    PlayerAnimation.PlayerReload();
+                    weapon.Reload();
+                }
+                
+                if(state == WeaponControler.WeaponState.Ready)
+                {
+                    weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
+                    PlayerAnimation.PlayerShoot();
                 }
             }
         }
@@ -44,12 +49,17 @@ public class PlayerShootControler : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 //Debug.Log("Player pressed mouse button");
-                if (!weapon.Shoot(cameraOrientation.position, cameraOrientation.forward))
+                WeaponControler.WeaponState state = weapon.GetWeaponState();
+                if (state == WeaponControler.WeaponState.OutOfAmmo)
                 {
-                    if (weapon.isEmpty())
-                    {
-                        weapon.Reload();
-                    }
+                    PlayerAnimation.PlayerReload();
+                    weapon.Reload();
+                }
+                
+                if(state == WeaponControler.WeaponState.Ready)
+                {
+                    weapon.Shoot(cameraOrientation.position, cameraOrientation.forward);
+                    PlayerAnimation.PlayerShoot();
                 }
             }
         }

@@ -7,6 +7,15 @@ using UnityEngine.Events;
 
 public class WeaponControler : MonoBehaviour
 {
+    public enum WeaponState
+    {
+        Ready,
+        OnCooldown,
+        OutOfAmmo,
+        Reloading
+    }
+
+    
     // Weapon fire rate (bullets per second)
     public float fireRate;
     // Weapon damage
@@ -26,20 +35,40 @@ public class WeaponControler : MonoBehaviour
     public AudioClip shootingSound; // Shooting sound
     public AudioClip reloadingSound; // Reloading sound
     
+    // light for shooting
+    public Light shootingLight;
+    public float lightDuration;
+    
+    private bool lightEnabled;
+    private float lightTime;
+    
     // Time to next fire
     float nextTimeToFire = 0f;
     
     private Vector3 origin;
     private Vector3 direction;
     
+    
     // Current ammo
-    private int currentAmmo;
+    // add geter and seter
+    private int _currentAmmo;
+    public int currentAmmo
+    {
+        get => _currentAmmo;
+        set
+        {
+            _currentAmmo = value;
+            OnAmmoChange?.Invoke(_currentAmmo);
+        }
+    }
+    // State of the weapon
+    private WeaponState weaponState;
     
     // Start is called before the first frame update
     void Start()
     {
         currentAmmo = maxAmmo;
-        OnAmmoChange?.Invoke(currentAmmo);
+        weaponState = WeaponState.Ready;
     }
     
 
@@ -48,54 +77,61 @@ public class WeaponControler : MonoBehaviour
         // Decrease time to next fire
         nextTimeToFire -= Time.deltaTime;
         
-        if(nextTimeToFire < 0)
-        {
-            OnAmmoChange?.Invoke(currentAmmo);
-        }
+        UpdateLight();
+        UpdateState();
     } 
     
-    // Method to shoot
-    public bool Shoot(Vector3 origin, Vector3 direction)
+    // Method to Get weapon state
+    public WeaponState GetWeaponState()
     {
-        
+        return weaponState;
+    }
+    
+    // Method to shoot
+    public WeaponState Shoot(Vector3 origin, Vector3 direction)
+    {
         RaycastHit hit;
-        // Check if time to next fire is greater than 0
-        if (nextTimeToFire >= 0)
+        // Check if weapon is ready to shoot
+        if(weaponState != WeaponState.Ready)
         {
-            return false;
-        }
-        
-        if(currentAmmo <= 0)
-        {
-            return false;
+            return weaponState;
         }
         
         currentAmmo--;
-        OnAmmoChange?.Invoke(currentAmmo);
-        
-        // Check if raycast hit something
-        if(Physics.Raycast(origin, direction, out hit, range))
-        {
-            // Set origin and direction
-            this.direction = direction;
-            this.origin = origin;
-            
-            // Play shooting sound
-            audioSource.PlayOneShot(shootingSound);
-            
-            // Check if hit object has BulletHitControler component
-            BulletHitControler hitControler = hit.transform.GetComponent<BulletHitControler>();
-            if(hitControler != null)
-            {
-                // Call Hit method on hit object
-                hitControler.Hit(hit, damage);
-            }
-        }
         
         // Set time to next fire
         nextTimeToFire = 1f / fireRate;
         
-        return true;
+        // Play shooting sound
+        audioSource.PlayOneShot(shootingSound);
+        TriggerShootLight();
+        
+        weaponState = WeaponState.OnCooldown;
+        
+        if(currentAmmo <= 0)
+        {
+            weaponState = WeaponState.OutOfAmmo;
+        }
+        
+        // Set origin and direction
+        this.direction = direction;
+        this.origin = origin;
+        
+        // Check if raycast hit something
+        if(!Physics.Raycast(origin, direction, out hit, range))
+        {
+            return weaponState;
+        }
+            
+        // Check if hit object has BulletHitControler component
+        BulletHitControler hitControler = hit.transform.GetComponent<BulletHitControler>();
+        if(hitControler != null)
+        {
+            // Call Hit method on hit object
+            hitControler.Hit(hit, damage);
+        }
+        
+        return weaponState;
     }
     
     public bool isEmpty()
@@ -105,7 +141,7 @@ public class WeaponControler : MonoBehaviour
     
     public void Reload()
     {
-        currentAmmo = maxAmmo;
+        weaponState = WeaponState.Reloading;
         nextTimeToFire = reloadTime;
         // Play reloading sound
         audioSource.PlayOneShot(reloadingSound);
@@ -114,6 +150,43 @@ public class WeaponControler : MonoBehaviour
     public int GetAmountOfAmmo()
     {
         return currentAmmo;
+    }
+    
+    private void TriggerShootLight()
+    {
+        shootingLight.gameObject.SetActive(true);
+        lightEnabled = true;
+        lightTime = lightDuration;
+    }
+    
+    private void UpdateLight()
+    {
+        if(lightEnabled)
+        {
+            lightTime -= Time.deltaTime;
+            if(lightTime <= 0)
+            {
+                shootingLight.gameObject.SetActive(false);
+                lightEnabled = false;
+            }
+        }
+    }
+    
+    private void UpdateState()
+    {
+        if(nextTimeToFire >= 0 && weaponState != WeaponState.Reloading && weaponState != WeaponState.OutOfAmmo)
+        {
+            weaponState = WeaponState.OnCooldown;
+        }
+        
+        if(nextTimeToFire < 0 && weaponState != WeaponState.OutOfAmmo)
+        {
+            if(weaponState == WeaponState.Reloading)
+            {
+                currentAmmo = maxAmmo;
+            }
+            weaponState = WeaponState.Ready;
+        }
     }
     
     private void OnDrawGizmos()
