@@ -9,6 +9,7 @@ public class PauseMenuTriger : MonoBehaviour
     public List<GameObject> objectsToDisable;
     public GameObject pauseMenuUI; // Reference to the pause menu UI
     private bool isPaused = false; // Flag to check if the game is paused
+    private List<AudioSource> audioSources = new List<AudioSource>();
     
     private void Awake()
     {
@@ -48,9 +49,11 @@ public class PauseMenuTriger : MonoBehaviour
         {
             objectToEnable.SetActive(true);
         }
+        ResumeAllAudio();
     }
 
     // Method to pause the game
+    // ReSharper disable Unity.PerformanceAnalysis
     void Pause()
     {
         Debug.Log("Pause");
@@ -63,5 +66,28 @@ public class PauseMenuTriger : MonoBehaviour
         {
             objectToDisable.SetActive(false);
         }
+        PauseAllAudio();
+    }
+    private void PauseAllAudio()
+    {
+        audioSources.Clear();
+        foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Pause();
+                audioSources.Add(audioSource);
+            }
+        }
+    }
+
+    private void ResumeAllAudio()
+    {
+        foreach (AudioSource audioSource in audioSources)
+        {
+            audioSource.UnPause();
+        }
+        audioSources.Clear();
     }
 }
+

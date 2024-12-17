@@ -22,6 +22,10 @@ public class PlayerShootControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
         // Check if weapon is automatic
         if(weapon.isAutomatic)
         {
@@ -29,6 +33,7 @@ public class PlayerShootControler : MonoBehaviour
             if(Input.GetMouseButton(0))
             {
                 //Debug.Log("Player is holding mouse button");
+                
                 WeaponControler.WeaponState state = weapon.GetWeaponState();
                 if (state == WeaponControler.WeaponState.OutOfAmmo)
                 {
