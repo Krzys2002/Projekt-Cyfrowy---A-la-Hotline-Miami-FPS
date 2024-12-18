@@ -19,7 +19,7 @@ public class CameraControler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Check if camera point or main camera is not set
         if(cameraPoint == null || mainCamera == null)
