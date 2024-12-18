@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2985503328619045348}
   - component: {fileID: 2112393825006752822}
+  - component: {fileID: 8236083259345230239}
   m_Layer: 0
   m_Name: SubLevel
   m_TagString: SubLevel
@@ -47,6 +48,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subLevels: []
   enemiesObject: {fileID: 3596396844956871352}
+  respawnPoint: {fileID: 0}
+--- !u!114 &8236083259345230239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833614287648371773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccfd0f615bf394608aa4f93f553e47b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RequirementsControler:
+    requirements:
+    - type: 2
+      countOrIndex: 0
+      target: {fileID: 2833614287648371773}
+    onRequirementsCompleted:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2112393825006752822}
+          m_TargetAssemblyTypeName: SubLevel, Assembly-CSharp
+          m_MethodName: ClearLevel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3596396844956871352
 GameObject:
   m_ObjectHideFlags: 0

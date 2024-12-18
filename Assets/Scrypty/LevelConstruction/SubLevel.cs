@@ -44,6 +44,8 @@ public class SubLevel : MonoBehaviour
             enemies.AddRange(subLevel.getEnemies());
         }
         
+        wasCleared = StoreData.Level.ClearedLevels.Contains(this);
+        
         //Debug.Log("SubLevel " + gameObject.name + " has " + enemies.Count + " enemies.");
     }
     
@@ -55,15 +57,20 @@ public class SubLevel : MonoBehaviour
     
     public void setTriger(bool triger)
     {
+        if(wasCleared)
+        {
+            return;
+        }
+        
         if (triger)
         {
-            Debug.Log("SubLevel " + gameObject.name + " was triggered.");
+            //Debug.Log("SubLevel " + gameObject.name + " was triggered.");
             EventManager.Levels.OnSubLevelTrigger.Invoke(this);
             this.triger = triger;
         }
         else
         {
-            Debug.Log("SubLevel " + gameObject.name + " was untriggered.");
+            //Debug.Log("SubLevel " + gameObject.name + " was untriggered.");
             this.triger = triger;
         }
     }
@@ -75,6 +82,11 @@ public class SubLevel : MonoBehaviour
     
     public void playerEnter(Gate enteredGate)
     {
+        if(wasCleared)
+        {
+            return;
+        }
+        
         playerWasInside = true;
         foreach (Gate gate in gates)
         {
@@ -88,6 +100,11 @@ public class SubLevel : MonoBehaviour
     
     public void playerExit(Gate exitedGate)
     {
+        if(wasCleared)
+        {
+            return;
+        }
+        
         foreach (Gate gate in gates)
         {
             if(gate != exitedGate)
@@ -105,6 +122,10 @@ public class SubLevel : MonoBehaviour
     
     public void ActivateEnemies()
     {
+        if(wasCleared)
+        {
+            return;
+        }
         //Debug.Log("Activating enemies in " + gameObject.name);
         enemiesObject.SetActive(true);
     }
@@ -152,6 +173,8 @@ public class SubLevel : MonoBehaviour
     public void ClearLevel()
     {
         wasCleared = true;
+        StoreData.Level.ClearedLevels.Add(this);
+        StoreData.Level.RespawnPoint = respawnPoint;
         foreach (SubLevel subLevel in subLevels)
         {
             subLevel.ClearLevel();

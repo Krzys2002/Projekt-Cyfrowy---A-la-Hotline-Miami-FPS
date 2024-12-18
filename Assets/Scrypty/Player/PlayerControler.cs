@@ -68,6 +68,12 @@ public class PlayerControler : MonoBehaviour
         {
             sensitivitySlider.value = (sensX - minSenstivity) / (maxSenstivity - minSenstivity);
         }
+        
+        if(StoreData.Level.RespawnPoint != null)
+        {
+            transform.position = StoreData.Level.RespawnPoint.position;
+            transform.rotation = StoreData.Level.RespawnPoint.rotation;
+        }
     }
 
     // Update is called once per frame

@@ -7,6 +7,7 @@ public class StoreData
 {
     public static readonly PlayerData Player = new PlayerData();
     public static readonly EnemyData Enemy = new EnemyData();
+    public static readonly LevelData Level = new LevelData();
     
     public class PlayerData
     {
@@ -16,5 +17,11 @@ public class StoreData
     public class EnemyData
     {
         public bool useObtacie;
+    }
+    
+    public class LevelData
+    {
+        public List<SubLevel> ClearedLevels = new List<SubLevel>();
+        public Transform RespawnPoint;
     }
 }
