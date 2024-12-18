@@ -11,6 +11,7 @@ public class RequirementsControler
     private List<Requirement> requirements;
     [SerializeField]
     public UnityEvent onRequirementsCompleted;
+    private bool isCompleted = false;
     
     
     // Start is called before the first frame update
@@ -45,7 +46,13 @@ public class RequirementsControler
         if (onRequirementsCompleted != null)
         {
             Debug.Log("All requirements completed");
+            isCompleted = true;
             onRequirementsCompleted.Invoke();
         }
+    }
+    
+    public bool IsCompleted()
+    {
+        return isCompleted;
     }
 }

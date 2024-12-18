@@ -176,6 +176,10 @@ public class SubLevel : MonoBehaviour
     
     public void ClearLevel()
     {
+        if(respawnPoint == null)
+        {
+            return;
+        }
         wasCleared = true;
         //Debug.Log("Clearing level " + gameObject.name);
         StoreData.LevelData.ClearedLevels.Add(gameObject.name);

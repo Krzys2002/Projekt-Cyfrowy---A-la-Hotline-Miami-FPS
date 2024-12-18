@@ -80,4 +80,14 @@ public class LevelControler : MonoBehaviour
     {
         return enemies;
     }
+    
+    public void OnPlayerEnterExitTrigger()
+    {
+        if (requirementsManager.RequirementsControler.IsCompleted())
+        {
+            StoreData.LevelData.LastClearedLevel = "";
+            StoreData.LevelData.RespawnPoint = Vector3.zero;
+            StoreData.LevelData.ClearedLevels.Clear();
+        }
+    }
 }
