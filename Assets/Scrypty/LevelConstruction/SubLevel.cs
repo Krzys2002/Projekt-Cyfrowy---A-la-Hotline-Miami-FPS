@@ -20,6 +20,9 @@ public class SubLevel : MonoBehaviour
     private bool playerWasInside = false;
 
     private bool triger = false;
+    
+    public Transform respawnPoint;
+    private bool wasCleared = false;
 
 
     // Start is called before the first frame update
@@ -146,4 +149,12 @@ public class SubLevel : MonoBehaviour
         }
     }
     
+    public void ClearLevel()
+    {
+        wasCleared = true;
+        foreach (SubLevel subLevel in subLevels)
+        {
+            subLevel.ClearLevel();
+        }
+    }
 }
