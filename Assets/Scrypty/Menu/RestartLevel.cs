@@ -13,6 +13,7 @@ public class RestartLevel : MonoBehaviour
         // Reload the current scene
         StoreData.LevelData.ClearedLevels.Clear();
         StoreData.LevelData.RespawnPoint = Vector3.zero;
+        StoreData.LevelData.LastClearedLevel = "";
         SceneManager.LoadScene(currentScene.name);
     }
 }
