@@ -3,25 +3,22 @@ using System.Collections.Generic;
 using DialogueEditor;
 using UnityEngine;
 
-public class StoreData
+public static class StoreData
 {
-    public static readonly PlayerData Player = new PlayerData();
-    public static readonly EnemyData Enemy = new EnemyData();
-    public static readonly LevelData Level = new LevelData();
-    
-    public class PlayerData
+    public static class PlayerData
     {
-        public List<NPCConversation> PreviousConversations = new List<NPCConversation>();
+        public static List<NPCConversation> PreviousConversations = new List<NPCConversation>();
     }
     
-    public class EnemyData
+    public static class EnemyData
     {
-        public bool useObtacie;
+        public static bool useObtacie;
     }
     
-    public class LevelData
+    public static class LevelData
     {
-        public List<SubLevel> ClearedLevels = new List<SubLevel>();
-        public Transform RespawnPoint;
+        public static List<string> ClearedLevels = new List<string>();
+        public static string LastClearedLevel;
+        public static Vector3 RespawnPoint = Vector3.zero;
     }
 }

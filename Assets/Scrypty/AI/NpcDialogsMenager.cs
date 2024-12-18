@@ -44,7 +44,7 @@ public class NpcDialogsMenager : MonoBehaviour
             EventManager.Player.OnPlayerExitDialogue.Invoke(inDialog.GetConversation());
         }
 
-        StoreData.Player.PreviousConversations.Add(inDialog.GetConversation());
+        StoreData.PlayerData.PreviousConversations.Add(inDialog.GetConversation());
         inDialog.Complete();
         inDialog = null;
     }

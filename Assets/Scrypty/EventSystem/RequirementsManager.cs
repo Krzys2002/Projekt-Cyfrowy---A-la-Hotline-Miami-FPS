@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[DefaultExecutionOrder(3)]
+[DefaultExecutionOrder(10)]
 public class RequirementsManager : MonoBehaviour
 {
     public RequirementsControler RequirementsControler;

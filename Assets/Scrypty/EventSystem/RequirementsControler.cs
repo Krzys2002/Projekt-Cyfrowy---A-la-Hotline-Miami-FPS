@@ -44,6 +44,7 @@ public class RequirementsControler
         // if so invoke onRequirementsCompleted event
         if (onRequirementsCompleted != null)
         {
+            Debug.Log("All requirements completed");
             onRequirementsCompleted.Invoke();
         }
     }

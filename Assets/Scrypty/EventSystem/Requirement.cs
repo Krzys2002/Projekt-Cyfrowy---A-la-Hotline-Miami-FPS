@@ -85,7 +85,7 @@ public class Requirement
                 }
                 break;
             case RequirementType.DialogueWasInteracted:
-                if(StoreData.Player.PreviousConversations.Contains(target.GetComponent<NPCConversation>()))
+                if(StoreData.PlayerData.PreviousConversations.Contains(target.GetComponent<NPCConversation>()))
                 {
                     isCompleted = true;
                     OnCompleted.Invoke();
@@ -119,7 +119,7 @@ public class Requirement
     private void Check(Component com)
     {
         count++;
-        //Debug.Log("Count: " + count);
+        //Debug.Log("Count: " + count + " CountOrIndex: " + countOrIndex);
 
         if (countOrIndex <= count)
         {

@@ -69,10 +69,15 @@ public class PlayerControler : MonoBehaviour
             sensitivitySlider.value = (sensX - minSenstivity) / (maxSenstivity - minSenstivity);
         }
         
-        if(StoreData.Level.RespawnPoint != null)
+        // Set player position to respawn point
+        
+        if(StoreData.LevelData.RespawnPoint != Vector3.zero)
         {
-            transform.position = StoreData.Level.RespawnPoint.position;
-            transform.rotation = StoreData.Level.RespawnPoint.rotation;
+            Debug.Log(StoreData.LevelData.RespawnPoint);
+            cc.enabled = false; // Disable CharacterController to set position directly
+            transform.position = StoreData.LevelData.RespawnPoint;
+            cc.enabled = true; // Re-enable CharacterController
+            Debug.Log("Player position set to respawn point: " + transform.position);
         }
     }
 

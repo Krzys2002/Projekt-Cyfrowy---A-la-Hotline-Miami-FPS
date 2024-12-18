@@ -44,15 +44,30 @@ public class LevelControler : MonoBehaviour
 
         if (ExperimentalEnemyObstacle)
         {
-            StoreData.Enemy.useObtacie = true;
+            StoreData.EnemyData.useObtacie = true;
         }
         
         
+        
+        if(Vector3.zero != StoreData.LevelData.RespawnPoint)
+        {
+            foreach (SubLevel level in subLevels)
+            {
+                if (level.gameObject.name == StoreData.LevelData.LastClearedLevel)
+                {
+                    startSubLevel = level;
+                    break;
+                }
+            }
+        }
+        
+        Debug.Log("Start " + startSubLevel.name);
+        
         // Activate start sublevel
         startSubLevel.ActivateEnemies();
+        
         // Player enters start sublevel
         startSubLevel.playerEnter(null);
-        startSubLevel.ActivateEnemies();
     }
     
     public void TriggerStartingSubLevel()

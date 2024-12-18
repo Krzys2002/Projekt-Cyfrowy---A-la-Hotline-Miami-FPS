@@ -245,7 +245,7 @@ public class EnemyControler : MonoBehaviour
             if (!isLookingAtPlayer && canMove)
             {
                 //Debug.Log("Following player.");
-                if (StoreData.Enemy.useObtacie)
+                if (StoreData.EnemyData.useObtacie)
                 {
                     obstacle.SetActive(false);
                     agent.enabled = true;
@@ -255,7 +255,7 @@ public class EnemyControler : MonoBehaviour
             }
             else if (Vector3.Distance(transform.position, playerTransform.position) < 10f)
             {
-                if(StoreData.Enemy.useObtacie)
+                if(StoreData.EnemyData.useObtacie)
                 {
                     agent.enabled = false;
                     obstacle.SetActive(true);
@@ -269,7 +269,7 @@ public class EnemyControler : MonoBehaviour
             else
             {
                 yield return new WaitForSeconds(0.5f); // Add 0.5 second delay
-                if(StoreData.Enemy.useObtacie)
+                if(StoreData.EnemyData.useObtacie)
                 {
                     agent.enabled = false;
                     obstacle.SetActive(true);

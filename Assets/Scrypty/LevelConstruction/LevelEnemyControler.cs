@@ -64,7 +64,7 @@ public class LevelEnemyControler : MonoBehaviour
     // then player triggers enemy activation
     private void OnEnemyTrigger(Component enemy)
     {
-        Debug.Log("Enemy triggered " + enemy.name);
+        //Debug.Log("Enemy triggered " + enemy.name);
         currentNumberOfActiveEnemies++;
     }
 

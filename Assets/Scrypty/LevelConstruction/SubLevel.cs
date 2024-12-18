@@ -43,8 +43,17 @@ public class SubLevel : MonoBehaviour
         {
             enemies.AddRange(subLevel.getEnemies());
         }
-        
-        wasCleared = StoreData.Level.ClearedLevels.Contains(this);
+
+        wasCleared = false;
+        foreach (var levelName in StoreData.LevelData.ClearedLevels)
+        {
+            if(levelName == gameObject.name)
+            {
+                wasCleared = true;
+                break;
+            }
+        }
+        Debug.Log("wasCleared: " + wasCleared + " " + gameObject.name);
         
         //Debug.Log("SubLevel " + gameObject.name + " has " + enemies.Count + " enemies.");
     }
@@ -82,11 +91,6 @@ public class SubLevel : MonoBehaviour
     
     public void playerEnter(Gate enteredGate)
     {
-        if(wasCleared)
-        {
-            return;
-        }
-        
         playerWasInside = true;
         foreach (Gate gate in gates)
         {
@@ -173,8 +177,11 @@ public class SubLevel : MonoBehaviour
     public void ClearLevel()
     {
         wasCleared = true;
-        StoreData.Level.ClearedLevels.Add(this);
-        StoreData.Level.RespawnPoint = respawnPoint;
+        //Debug.Log("Clearing level " + gameObject.name);
+        StoreData.LevelData.ClearedLevels.Add(gameObject.name);
+        StoreData.LevelData.RespawnPoint = respawnPoint.position;
+        StoreData.LevelData.LastClearedLevel = gameObject.name;
+        Debug.Log("respawnPoint: " + respawnPoint.position);
         foreach (SubLevel subLevel in subLevels)
         {
             subLevel.ClearLevel();

@@ -24,7 +24,7 @@ public class HealthManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Health change: " + currentPresent);
+        //Debug.Log("Health change: " + currentPresent);
         if (currentPresent == 1)
         {
             HealthIndicator.mainScale = 0f;

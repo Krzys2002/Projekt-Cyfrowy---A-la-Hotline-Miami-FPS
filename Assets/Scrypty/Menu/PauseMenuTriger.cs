@@ -56,7 +56,7 @@ public class PauseMenuTriger : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     void Pause()
     {
-        Debug.Log("Pause");
+        //Debug.Log("Pause");
         pauseMenuUI.SetActive(true); // Show the pause menu UI
         isPaused = true; // Set the pause flag to true
         Time.timeScale = 0f; // Pause the game time

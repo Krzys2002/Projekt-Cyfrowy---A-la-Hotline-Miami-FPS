@@ -25,7 +25,7 @@ public class NpcDialog
         requirementsControler.onRequirementsCompleted.AddListener(RequirementsCompletedEvent);
         requirementsControler.Start();
         
-        if(StoreData.Player.PreviousConversations.Contains(dialog))
+        if(StoreData.PlayerData.PreviousConversations.Contains(dialog))
         {
             wasCompletedBefore = true;
         }
